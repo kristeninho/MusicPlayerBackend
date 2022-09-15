@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayerBackend", "MusicPlayerBackend\MusicPlayerBackend.csproj", "{D0E8646F-7FFF-457F-B233-D4039C64A516}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayerBackend.Tests", "MusicPlayerBackend.Tests\MusicPlayerBackend.Tests.csproj", "{DD39B660-2922-443C-B84F-D85760EC1446}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0E8646F-7FFF-457F-B233-D4039C64A516} = {D0E8646F-7FFF-457F-B233-D4039C64A516}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0E8646F-7FFF-457F-B233-D4039C64A516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0E8646F-7FFF-457F-B233-D4039C64A516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0E8646F-7FFF-457F-B233-D4039C64A516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0E8646F-7FFF-457F-B233-D4039C64A516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD39B660-2922-443C-B84F-D85760EC1446}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD39B660-2922-443C-B84F-D85760EC1446}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD39B660-2922-443C-B84F-D85760EC1446}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD39B660-2922-443C-B84F-D85760EC1446}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3614CC7-2915-429F-ABB0-07E3E0E31F53}
+	EndGlobalSection
+EndGlobal
