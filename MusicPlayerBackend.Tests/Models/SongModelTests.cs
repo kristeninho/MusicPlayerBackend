@@ -17,7 +17,7 @@ namespace MusicPlayerBackend.Tests.Models
                 Id = new Guid(),
                 Name = "Song name",
                 Duration = "3.30",
-                SongData = new byte[100],
+                SongFile = new byte[100],
                 UploadDate = DateTime.Now
             };
         }
@@ -37,9 +37,9 @@ namespace MusicPlayerBackend.Tests.Models
         [Fact]
         public void SongDurationIsTypeStringTest() => Assert.IsType<string>(_song.Duration);
         [Fact]
-        public void SongModelHasSongDataPropertyTest() => Assert.NotNull(_song.SongData);
+        public void SongModelHasSongFilePropertyTest() => Assert.NotNull(_song.SongFile);
         [Fact]
-        public void SongSongDataIsTypeByteArrayTest() => Assert.IsType<byte[]>(_song.SongData);
+        public void SongSongFileIsTypeByteArrayTest() => Assert.IsType<byte[]>(_song.SongFile);
         [Fact]
         public void SongModelHasUploadDatePropertyTest() => Assert.NotNull(_song.UploadDate);
         [Fact]

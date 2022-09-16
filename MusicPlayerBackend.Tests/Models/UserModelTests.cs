@@ -41,5 +41,17 @@ namespace MusicPlayerBackend.Tests.Models
         public void UserModelHasAlbumsPropertyTest() => Assert.NotNull(_user.Albums);
         [Fact]
         public void UserAlbumsIsTypeICollectionAlbumTest() => Assert.IsAssignableFrom<ICollection<Album>>(_user.Albums);
+        [Fact]
+        public void UserAlbumsCanBeNullTest()
+        {
+            var userWithNoAlbums = new User()
+            {
+                Name = "User Name",
+                Id = new Guid(),
+                Songs = new List<Song>()
+            };
+            Assert.NotNull(userWithNoAlbums);
+            Assert.Null(userWithNoAlbums.Albums);
+        }
     }
 }
