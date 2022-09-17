@@ -1,13 +1,8 @@
 ﻿using MusicPlayerBackend.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MusicPlayerBackend.Tests.Models
 {
-    public class SongModelTests
+	public class SongModelTests
     {
         private readonly Song _song;
         public SongModelTests()

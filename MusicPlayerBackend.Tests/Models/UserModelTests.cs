@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
-using MusicPlayerBackend.Models;
-using MusicPlayerBackend.Tests;
+﻿using MusicPlayerBackend.Models;
 
 namespace MusicPlayerBackend.Tests.Models
 {
-    public class UserModelTests
+	public class UserModelTests
     {
         private readonly User _user;
         public UserModelTests()
@@ -17,6 +10,7 @@ namespace MusicPlayerBackend.Tests.Models
             _user = new User()
             {
                 Name = "User Name",
+                Password = "Password",
                 Id = new Guid(),
                 Albums = new List<Album>(),
                 Songs = new List<Song>()
@@ -32,7 +26,11 @@ namespace MusicPlayerBackend.Tests.Models
         [Fact]
         public void UserModelHasNamePropertyTest() => Assert.NotNull(_user.Name);
         [Fact]
-        public void UserNameIsTypeStringTest() => Assert.IsType<String>(_user.Name);
+        public void UserNameIsTypeStringTest() => Assert.IsType<string>(_user.Name);
+        [Fact]
+        public void UserModelHasPasswordPropertyTest() => Assert.NotNull(_user.Password);
+        [Fact]
+        public void UserPasswordIsTypeStringTest() => Assert.IsType<string>(_user.Password);
         [Fact]
         public void UserModelHasSongsPropertyTest() => Assert.NotNull(_user.Songs);
         [Fact]
@@ -52,6 +50,18 @@ namespace MusicPlayerBackend.Tests.Models
             };
             Assert.NotNull(userWithNoAlbums);
             Assert.Null(userWithNoAlbums.Albums);
+        }
+        [Fact]
+        public void UserSongsCanBeNullTest()
+        {
+            var userWithNoSongs = new User()
+            {
+                Name = "User Name",
+                Id = new Guid(),
+                Albums = new List<Album>()
+            };
+            Assert.NotNull(userWithNoSongs);
+            Assert.Null(userWithNoSongs.Songs);
         }
     }
 }

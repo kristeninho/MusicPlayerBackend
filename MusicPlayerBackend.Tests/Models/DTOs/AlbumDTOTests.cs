@@ -1,13 +1,8 @@
 ﻿using MusicPlayerBackend.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MusicPlayerBackend.Tests.Models.DTOs
 {
-    public class AlbumDTOTests
+	public class AlbumDTOTests
     {
         private readonly AlbumDTO _albumDTO;
         public AlbumDTOTests()

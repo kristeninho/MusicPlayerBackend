@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using EntityFrameworkCore.Testing.Moq;
+﻿using EntityFrameworkCore.Testing.Moq;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using MusicPlayerBackend.Data;
 using MusicPlayerBackend.Models;
 
 namespace MusicPlayerBackend.Tests.Data
 {
-    public class AppDbContextTests
+	public class AppDbContextTests
     {
         private readonly AppDbContext _context;
         public AppDbContextTests()

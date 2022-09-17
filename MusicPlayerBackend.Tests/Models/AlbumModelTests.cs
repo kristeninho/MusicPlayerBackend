@@ -1,13 +1,8 @@
 ﻿using MusicPlayerBackend.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MusicPlayerBackend.Tests.Models
 {
-    public class AlbumModelTests
+	public class AlbumModelTests
     {
         private readonly Album _album;
         public AlbumModelTests()
