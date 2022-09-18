@@ -12,8 +12,7 @@ namespace MusicPlayerBackend.Tests.Models
                 Name = "User Name",
                 Password = "Password",
                 Id = new Guid(),
-                Albums = new List<Album>(),
-                Songs = new List<Song>()
+                Albums = new List<Album>()
             };
         }
 
@@ -32,10 +31,6 @@ namespace MusicPlayerBackend.Tests.Models
         [Fact]
         public void UserPasswordIsTypeStringTest() => Assert.IsType<string>(_user.Password);
         [Fact]
-        public void UserModelHasSongsPropertyTest() => Assert.NotNull(_user.Songs);
-        [Fact]
-        public void UserSongsIsTypeICollectionSongTest() => Assert.IsAssignableFrom<ICollection<Song>>(_user.Songs);
-        [Fact]
         public void UserModelHasAlbumsPropertyTest() => Assert.NotNull(_user.Albums);
         [Fact]
         public void UserAlbumsIsTypeICollectionAlbumTest() => Assert.IsAssignableFrom<ICollection<Album>>(_user.Albums);
@@ -45,23 +40,10 @@ namespace MusicPlayerBackend.Tests.Models
             var userWithNoAlbums = new User()
             {
                 Name = "User Name",
-                Id = new Guid(),
-                Songs = new List<Song>()
+                Id = new Guid()
             };
             Assert.NotNull(userWithNoAlbums);
             Assert.Null(userWithNoAlbums.Albums);
-        }
-        [Fact]
-        public void UserSongsCanBeNullTest()
-        {
-            var userWithNoSongs = new User()
-            {
-                Name = "User Name",
-                Id = new Guid(),
-                Albums = new List<Album>()
-            };
-            Assert.NotNull(userWithNoSongs);
-            Assert.Null(userWithNoSongs.Songs);
         }
     }
 }

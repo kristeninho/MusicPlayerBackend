@@ -8,5 +8,6 @@
         public string Duration { get; set; }
         public byte[] CoverImage { get; set; }
         public List<SongDTO> Songs { get; set; }
+        public string UserName { get; set; }
     }
 }

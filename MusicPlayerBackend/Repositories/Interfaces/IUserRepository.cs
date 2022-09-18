@@ -4,6 +4,6 @@ namespace MusicPlayerBackend.Repositories.Interfaces
 {
 	public interface IUserRepository: IBaseRepository<UserCredentialsDTO>
 	{
-		Task<UserDataDTO> GetUserDataAsync(string userName);
+		Task<UserDataDTO?> GetUserDataAsync(string userName);
 	}
 }

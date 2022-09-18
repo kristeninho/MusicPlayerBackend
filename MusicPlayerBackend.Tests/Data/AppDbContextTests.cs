@@ -20,7 +20,7 @@ namespace MusicPlayerBackend.Tests.Data
         [Fact]
         public void AppDbContextHasDbSetWithTypeSongTest() => Assert.True(_context.Songs is DbSet<Song>);
         [Fact]
-        public void AppDbContextHasDbSetWithTypeAlbumTest() => Assert.True(_context.Albums is DbSet<Song>);
+        public void AppDbContextHasDbSetWithTypeAlbumTest() => Assert.True(_context.Albums is DbSet<Album>);
 
     }
 }

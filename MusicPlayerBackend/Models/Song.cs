@@ -8,6 +8,6 @@
         public string Duration { get; set; }
         public byte[] SongFile { get; set; }
 
-        public Album? Album { get; set; }
+        public Album Album { get; set; }
     }
 }

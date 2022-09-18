@@ -8,6 +8,5 @@
         public string Duration { get; set; }
         public byte[] SongFile { get; set; }
         public AlbumDTO? Album { get; set; }
-        public string UserName { get; set; }
     }
 }

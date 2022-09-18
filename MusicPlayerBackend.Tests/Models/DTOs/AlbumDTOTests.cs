@@ -14,7 +14,8 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
                 Duration = "30:00",
                 UploadDate = DateTime.Now,
                 CoverImage = new byte[100],
-                Songs = new List<SongDTO>()
+                Songs = new List<SongDTO>(),
+                UserName = "User Name"
             };
         }
 
@@ -44,5 +45,9 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
         public void AlbumDTOHasSongsPropertyTest() => Assert.NotNull(_albumDTO.Songs);
         [Fact]
         public void AlbumDTOSongsPropertyIsTypeListSongDTOTest() => Assert.IsType<List<SongDTO>>(_albumDTO.Songs);
+        [Fact]
+        public void AlbumDTOHasUserNamePropertyTest() => Assert.NotNull(_albumDTO.UserName);
+        [Fact]
+        public void AlbumDTOUserNamePropertyIsTypeStringTest() => Assert.IsType<string>(_albumDTO.UserName);
     }
 }

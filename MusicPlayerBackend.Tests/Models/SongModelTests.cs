@@ -13,7 +13,8 @@ namespace MusicPlayerBackend.Tests.Models
                 Name = "Song name",
                 Duration = "3.30",
                 SongFile = new byte[100],
-                UploadDate = DateTime.Now
+                UploadDate = DateTime.Now,
+                Album = new Album()
             };
         }
 
@@ -39,5 +40,9 @@ namespace MusicPlayerBackend.Tests.Models
         public void SongModelHasUploadDatePropertyTest() => Assert.NotNull(_song.UploadDate);
         [Fact]
         public void SongUploadDateIsTypeDateTimeTest() => Assert.IsType<DateTime>(_song.UploadDate);
+        [Fact]
+        public void SongModelHasAlbumPropertyTest() => Assert.NotNull(_song.Album);
+        [Fact]
+        public void SongAlbumIsTypeAlbumTest() => Assert.IsType<Album>(_song.Album);
     }
 }

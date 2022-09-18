@@ -14,7 +14,8 @@ namespace MusicPlayerBackend.Tests.Models
                 UploadDate = DateTime.Now,
                 CoverImage = new byte[100],
                 Duration = "30:00",
-                Songs = new List<Song>()
+                Songs = new List<Song>(),
+                User = new User()
             };
         }
 
@@ -44,5 +45,9 @@ namespace MusicPlayerBackend.Tests.Models
         public void AlbumModelHasSongsPropertyTest() => Assert.NotNull(_album.Songs);
         [Fact]
         public void AlbumSongsIsTypeICollectionSongTest() => Assert.IsAssignableFrom<ICollection<Song>>(_album.Songs);
+        [Fact]
+        public void AlbumModelHasUserPropertyTest() => Assert.NotNull(_album.User);
+        [Fact]
+        public void AlbumUserIsTypeUserTest() => Assert.IsType<User>(_album.User);
     }
 }

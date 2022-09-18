@@ -8,5 +8,6 @@
         public string Duration { get; set; }
         public byte[] CoverImage { get; set; }
         public ICollection<Song> Songs { get; set; }
+        public User User { get; set; }
     }
 }
