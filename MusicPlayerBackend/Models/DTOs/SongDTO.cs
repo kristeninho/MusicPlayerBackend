@@ -7,6 +7,6 @@
         public DateTime UploadDate { get; set; }
         public string Duration { get; set; }
         public byte[] SongFile { get; set; }
-        public AlbumDTO? Album { get; set; }
+        public Guid? AlbumId { get; set; }
     }
 }

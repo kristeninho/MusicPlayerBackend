@@ -3,6 +3,7 @@ using MusicPlayerBackend.Data;
 using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories;
+using System.Text.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -188,71 +189,117 @@ namespace MusicPlayerBackend.Tests.Repositories
 			//assert
 			Assert.Equal(expectedResult, updateUserResult);
 		}
-		//[Fact]
-		//public async void UserRepository_GetUserDataAsyncTest_GetsDataSuccessfully()
-		//{
-		//	//arrange
-		//	string userName = "Username4";
-		//	using var dbContext = _context.CreateDbContext();
-		//	InitializeDatabase(dbContext, userName);
+		[Fact]
+		public async void UserRepository_GetUserDataAsyncTest_GetsDataSuccessfully()
+		{
+			//arrange
+			string userName = "Username4";
+			using var dbContext = _context.CreateDbContext();
+			var user = InitializeDatabaseAndReturnUser(dbContext, userName).Result;
+			var userDTO = TransferUserDataToDTO(user);
 
-		//	//act
-		//	var updateUserResult = await _repository.GetUserDataAsync(userName);
-		//	UserDataDTO? expectedResult = null;
+			//act
+			var updateUserResult = await _repository.GetUserDataAsync(userName);
 
-		//	//assert
-		//	Assert.Equal(expectedResult, updateUserResult);
-		//}
+			var expectedJson = JsonSerializer.Serialize(userDTO);
+			var actualJson = JsonSerializer.Serialize(updateUserResult);
 
-		//private async void InitializeDatabase(AppDbContext dbContext, string userName)
-		//{
-		//	var validUserCredentialsDTO = new UserCredentialsDTO
-		//	{
-		//		UserName = userName,
-		//		Password = "Password4$"
-		//	};
-		//	await _repository.AddAsync(validUserCredentialsDTO);
+			//assert
+			Assert.Equal(expectedJson, actualJson);
+		}
 
-		//	var songList = new List<Song>
-		//	{
-		//		new Song
-		//		{
-		//			Name = "Song1",
-		//			Duration = "3:00",
-		//			SongFile = new byte[100],
-		//			UploadDate = DateTime.Now
-		//		},
-		//		new Song
-		//		{
-		//			Name = "Song2",
-		//			Duration = "2:00",
-		//			SongFile = new byte[100],
-		//			UploadDate = DateTime.Now
-		//		},
-		//		new Song
-		//		{
-		//			Name = "Song2",
-		//			Duration = "4:00",
-		//			SongFile = new byte[100],
-		//			UploadDate = DateTime.Now
-		//		}
-		//	};
+		private async Task<User> InitializeDatabaseAndReturnUser(AppDbContext dbContext, string userName)
+		{
+			var validUserCredentialsDTO = new UserCredentialsDTO
+			{
+				UserName = userName,
+				Password = "Password4$"
+			};
+			await _repository.AddAsync(validUserCredentialsDTO);
 
-		//	var album = new Album
-		//	{
-		//		Name = "Album1",
-		//		CoverImage = new byte[100],
-		//		Duration = "9:00",
-		//		Songs = songList,
-		//		UploadDate = DateTime.Now
-		//	};
-		//	await dbContext.Albums.AddAsync(album);
-		//	await dbContext.SaveChangesAsync();
+			var songList = new List<Song>
+			{
+				new Song
+				{
+					Name = "Song1",
+					Duration = "3:00",
+					SongFile = new byte[100],
+					UploadDate = DateTime.Now,
+				},
+				new Song
+				{
+					Name = "Song2",
+					Duration = "2:00",
+					SongFile = new byte[100],
+					UploadDate = DateTime.Now
+				},
+				new Song
+				{
+					Name = "Song2",
+					Duration = "4:00",
+					SongFile = new byte[100],
+					UploadDate = DateTime.Now
+				}
+			};
 
-		//	var albumsFromDb = await dbContext.Albums.Where(a => a.Name == "Album1").ToListAsync();
-		//	var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Name == userName);
-		//	user.Albums = albumsFromDb;
-		//	await dbContext.SaveChangesAsync();
-		//}
+			var album = new Album
+			{
+				Name = "Album1",
+				CoverImage = new byte[100],
+				Duration = "9:00",
+				Songs = songList,
+				UploadDate = DateTime.Now
+			};
+			await dbContext.Albums.AddAsync(album);
+			await dbContext.SaveChangesAsync();
+
+			var albumsFromDb = await dbContext.Albums.Where(a => a.Name == "Album1").ToListAsync();
+			var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Name == userName);
+			user.Albums = albumsFromDb;
+			await dbContext.SaveChangesAsync();
+			return user;
+		}
+
+		private UserDataDTO TransferUserDataToDTO(User? user)
+		{
+			List<AlbumDTO> albumDTOs = new List<AlbumDTO>();
+			List<SongDTO> songDTOs = new List<SongDTO>();
+			foreach (var album in user.Albums)
+			{
+				var albumDTO = new AlbumDTO
+				{
+					Id = album.Id,
+					Name = album.Name,
+					Duration = album.Duration,
+					UploadDate = album.UploadDate,
+					UserName = user.Name,
+					CoverImage = album.CoverImage,
+					Songs = new List<SongDTO>()
+				};
+
+				foreach (var song in album.Songs)
+				{
+					var songDTO = new SongDTO
+					{
+						Id = song.Id,
+						Name = song.Name,
+						Duration = song.Duration,
+						SongFile = song.SongFile,
+						UploadDate = song.UploadDate,
+						AlbumId = album.Id
+					};
+
+					songDTOs.Add(songDTO);
+					albumDTO.Songs.Add(songDTO);
+				}
+				albumDTOs.Add(albumDTO);
+			}
+			return new UserDataDTO
+			{
+				Name = user.Name,
+				Albums = albumDTOs,
+				Songs = songDTOs
+			};
+		}
 	}
 }

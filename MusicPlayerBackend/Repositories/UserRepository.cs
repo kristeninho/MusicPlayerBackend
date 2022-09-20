@@ -93,9 +93,51 @@ namespace MusicPlayerBackend.Repositories
 			if (!IsUserNameValid(userName)) return null;
 
 			using var dbContext = _context.CreateDbContext();
-			var user = await dbContext.Users.Include("Albums").Include("Songs").FirstOrDefaultAsync(u => u.Name == userName);
-			//UserDataDTO userDTO = TransferUserDataToDTO(user);
-			return null;
+			var user = await dbContext.Users.Include(u => u.Albums).ThenInclude(a => a.Songs).FirstOrDefaultAsync(u => u.Name == userName);
+			UserDataDTO userDTO = TransferUserDataToDTO(user);
+			return userDTO;
+		}
+
+		private UserDataDTO TransferUserDataToDTO(User? user)
+		{
+			List<AlbumDTO> albumDTOs = new List<AlbumDTO>();
+			List<SongDTO> songDTOs = new List<SongDTO>();
+			foreach (var album in user.Albums)
+			{
+				var albumDTO = new AlbumDTO
+				{
+					Id = album.Id,
+					Name = album.Name,
+					Duration = album.Duration,
+					UploadDate = album.UploadDate,
+					UserName = user.Name,
+					CoverImage = album.CoverImage,
+					Songs = new List<SongDTO>()
+				};
+				
+				foreach(var song in album.Songs)
+				{
+					var songDTO = new SongDTO
+					{
+						Id = song.Id,
+						Name = song.Name,
+						Duration = song.Duration,
+						SongFile = song.SongFile,
+						UploadDate = song.UploadDate,
+						AlbumId = album.Id
+					};
+
+					songDTOs.Add(songDTO);
+					albumDTO.Songs.Add(songDTO);
+				}
+				albumDTOs.Add(albumDTO);
+			}
+			return new UserDataDTO
+			{
+				Name = user.Name,
+				Albums = albumDTOs,
+				Songs = songDTOs
+			};
 		}
 
 		//private UserDataDTO TransferUserDataToDTO(User? user)
@@ -133,7 +175,7 @@ namespace MusicPlayerBackend.Repositories
 		//private List<AlbumDTO> TransferAlbumsToAlbumDTOs(ICollection<Album>? albums, List<SongDTO> songDTOs)
 		//{
 		//	var albumDTOs = new List<AlbumDTO>();
-			
+
 		//	foreach(var album in albums)
 		//	{
 		//		albumDTOs.Add(new AlbumDTO
