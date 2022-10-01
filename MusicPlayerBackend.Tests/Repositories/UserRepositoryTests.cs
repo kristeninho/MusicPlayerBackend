@@ -21,14 +21,14 @@ namespace MusicPlayerBackend.Tests.Repositories
 		{
 			_context = new TestDbContextFactory("UserInMemoryDb");
 			_repository = new UserRepository(_context);
-			InitializeDatabase(_context);
+			//InitializeDatabase(_context);
 		}
 
-		private void InitializeDatabase(IDbContextFactory<AppDbContext> context)
-		{
-			//var dbContext = context.CreateDbContext();
-			//dbContext.Database.EnsureCreated();
-		}
+		//private void InitializeDatabase(IDbContextFactory<AppDbContext> context)
+		//{
+		//	//var dbContext = context.CreateDbContext();
+		//	//dbContext.Database.EnsureCreated();
+		//}
 
 		[Fact]
 		public async void UserRepository_AddAsyncTest_ValidUser()
@@ -195,7 +195,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 			//arrange
 			string userName = "Username4";
 			using var dbContext = _context.CreateDbContext();
-			var user = InitializeDatabaseAndReturnUser(dbContext, userName).Result;
+			var user = await InitializeDatabaseAndReturnUser(dbContext, userName);
 			var userDTO = TransferUserDataToDTO(user);
 
 			//act
