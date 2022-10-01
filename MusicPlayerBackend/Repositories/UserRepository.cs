@@ -94,6 +94,7 @@ namespace MusicPlayerBackend.Repositories
 
 			using var dbContext = _context.CreateDbContext();
 			var user = await dbContext.Users.Include(u => u.Albums).ThenInclude(a => a.Songs).FirstOrDefaultAsync(u => u.Name == userName);
+			if (user == null) return null;
 			UserDataDTO userDTO = TransferUserDataToDTO(user);
 			return userDTO;
 		}
@@ -102,6 +103,7 @@ namespace MusicPlayerBackend.Repositories
 		{
 			List<AlbumDTO> albumDTOs = new List<AlbumDTO>();
 			List<SongDTO> songDTOs = new List<SongDTO>();
+			// this can be done using TPL
 			foreach (var album in user.Albums)
 			{
 				var albumDTO = new AlbumDTO
@@ -139,56 +141,5 @@ namespace MusicPlayerBackend.Repositories
 				Songs = songDTOs
 			};
 		}
-
-		//private UserDataDTO TransferUserDataToDTO(User? user)
-		//{
-		//	List<SongDTO> songDTOs = TransferSongsToSongDTOs(user.Albums[0, user.Name);
-		//	List<AlbumDTO> albumDTOs = TransferAlbumsToAlbumDTOs(user.Albums, songDTOs);
-		//	return new UserDataDTO
-		//	{
-		//		Name = user.Name,
-		//		Albums = albumDTOs,
-		//		Songs = songDTOs
-		//	};
-		//}
-
-		//private List<SongDTO> TransferSongsToSongDTOs(ICollection<Song>? songs, string userName)
-		//{
-		//	var songDTOs = new List<SongDTO>();
-		//	foreach(var song in songs)
-		//	{
-		//		songDTOs.Add(
-		//			new SongDTO
-		//			{
-		//				Id = song.Id,
-		//				Name = song.Name,
-		//				Duration = song.Duration,
-		//				SongFile = song.SongFile,
-		//				UploadDate = song.UploadDate,
-		//				UserName = userName
-		//			}
-		//		);
-		//	}
-		//	return songDTOs;
-		//}
-
-		//private List<AlbumDTO> TransferAlbumsToAlbumDTOs(ICollection<Album>? albums, List<SongDTO> songDTOs)
-		//{
-		//	var albumDTOs = new List<AlbumDTO>();
-
-		//	foreach(var album in albums)
-		//	{
-		//		albumDTOs.Add(new AlbumDTO
-		//		{
-		//			Id = album.Id,
-		//			Name = album.Name,
-		//			CoverImage = album.CoverImage,
-		//			Duration = album.Duration,
-		//			Songs = album.Songs.SelectMany(song => songDTOs.Where(songDTO => song.Id == songDTO.Id)).ToList(),
-		//			UploadDate = album.UploadDate
-		//		});
-		//	}
-		//	return albumDTOs;
-		//}
 	}
 }

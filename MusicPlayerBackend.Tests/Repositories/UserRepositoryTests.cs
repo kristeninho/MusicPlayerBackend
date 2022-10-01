@@ -199,13 +199,41 @@ namespace MusicPlayerBackend.Tests.Repositories
 			var userDTO = TransferUserDataToDTO(user);
 
 			//act
-			var updateUserResult = await _repository.GetUserDataAsync(userName);
+			var getUserDataResult = await _repository.GetUserDataAsync(userName);
 
 			var expectedJson = JsonSerializer.Serialize(userDTO);
-			var actualJson = JsonSerializer.Serialize(updateUserResult);
+			var actualJson = JsonSerializer.Serialize(getUserDataResult);
 
 			//assert
 			Assert.Equal(expectedJson, actualJson);
+		}
+		[Theory]
+		[InlineData(null)] // null username
+		[InlineData("Us")] // too short username
+		[InlineData("UserWithTooLongUserName")] // too long username
+		[InlineData("username!")] // punctuation in username
+		[InlineData("username€")] // symbol in username
+		public async void UserRepository_GetUserDataAsyncTest_InvalidUsername(string userName)
+		{
+			//arrange
+
+			//act
+			var getUserDataResult = await _repository.GetUserDataAsync(userName);
+
+			//assert
+			Assert.Null(getUserDataResult);
+		}
+		[Fact]
+		public async void UserRepository_GetUserDataAsyncTest_UserDoesNotExist()
+		{
+			//arrange
+			string userName = "Username5";
+
+			//act
+			var getUserDataResult = await _repository.GetUserDataAsync(userName);
+
+			//assert
+			Assert.Null(getUserDataResult);
 		}
 
 		private async Task<User> InitializeDatabaseAndReturnUser(AppDbContext dbContext, string userName)
