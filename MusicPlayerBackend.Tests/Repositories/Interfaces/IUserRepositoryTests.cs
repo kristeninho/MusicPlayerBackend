@@ -19,5 +19,17 @@ namespace MusicPlayerBackend.Tests.Repositories.Interfaces
 		public void IUserRepositoryHasDeleteAsyncTaskTest() => Assert.True(_iUserRepository.DeleteAsync(new UserCredentialsDTO()) is Task<string>);
 		[Fact]
 		public void IUserRepositoryHasGetUserDataAsyncTaskTest() => Assert.True(_iUserRepository.GetUserDataAsync("User name") is Task<UserDataDTO>);
+		[Fact]
+		public void IUserRepositoryHasCheckIfUserWithSameNameAndPasswordExistsTaskTest()
+		{
+			var userCredentialsDTO = new UserCredentialsDTO
+			{
+				UserName = "UserName1",
+				Password = "Password1!"
+			};
+            Assert.True(_iUserRepository.CheckIfUserWithSameNameAndPasswordExists(userCredentialsDTO) is Task<bool>);
+        }
+		[Fact]
+		public void IUserRepositoryHasCheckIfUserWithSameNameExistsTaskTest() => Assert.True(_iUserRepository.CheckIfUserWithSameNameExists("UserName1") is Task<bool>);
 	}
 }

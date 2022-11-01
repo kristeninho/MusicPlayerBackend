@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MusicPlayerBackend.Helpers;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Models.JWT;
+using MusicPlayerBackend.Repositories.Interfaces;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,13 +16,22 @@ namespace MusicPlayerBackend.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] UserCredentialsDTO user)
+        private readonly UserCredentialsValidator _userCredentialsValidator;
+        private readonly IUserRepository _userRepository;
+
+        public AuthenticationController(IUserRepository userRepository)
         {
-            if (user == null) return BadRequest("Invalid user request");
+            _userCredentialsValidator = new UserCredentialsValidator();
+            _userRepository = userRepository;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync([FromBody] UserCredentialsDTO user)
+        {
+            if (user == null || !_userCredentialsValidator.AreUserCredentialsValid(user)) return BadRequest("Invalid user request");
 
             //TODO: check for user in the database here. if user exists then check if password matches.
-            if (user.UserName == "Kristen" && user.Password == "Niilop")
+            if (await _userRepository.CheckIfUserWithSameNameAndPasswordExists(user))
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationManager.AppSetting["JWT:Secret"]));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
