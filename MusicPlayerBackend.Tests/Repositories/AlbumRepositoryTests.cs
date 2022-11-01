@@ -3,6 +3,7 @@ using MusicPlayerBackend.Data;
 using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories;
+using MusicPlayerBackend.Tests.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,55 +17,18 @@ namespace MusicPlayerBackend.Tests.Repositories
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
 		private readonly AlbumRepository _repository;
+		private readonly AlbumDTOs _albumDTOs;
 		public AlbumRepositoryTests()
 		{
 			_context = new TestDbContextFactory("AlbumInMemoryDb");
 			_repository = new AlbumRepository(_context);
+			_albumDTOs = new AlbumDTOs();
 		}
 		[Fact]
-		public async void AlbumRepository_AddAsyncTest_ValidAlbum()
+		public async void AlbumRepository_AddAsyncTest_ValidAlbumDTO()
 		{
 			//arrange
-			var albumId = Guid.NewGuid();
-			var validAlbumDTO = new AlbumDTO
-			{
-				Id = albumId,
-				Name = "Album1",
-				UserName = "Username1",
-				Duration = "30:00",
-				CoverImage = new byte[100],
-				UploadDate = DateTime.Now,
-				Songs = new List<SongDTO>()
-				{
-					new SongDTO
-					{
-						Name = "Song1",
-						Duration = "10:00",
-						Id = Guid.NewGuid(),
-						UploadDate = DateTime.Now,
-						SongFile = new byte[100],
-						AlbumId = albumId
-					},
-					new SongDTO
-					{
-						Name = "Song2",
-						Duration = "12:00",
-						Id = Guid.NewGuid(),
-						UploadDate = DateTime.Now,
-						SongFile = new byte[100],
-						AlbumId = albumId
-					},
-					new SongDTO
-					{
-						Name = "Song3",
-						Duration = "08:00",
-						Id = Guid.NewGuid(),
-						UploadDate = DateTime.Now,
-						SongFile = new byte[100],
-						AlbumId = albumId
-					},
-				}
-			};
+			var validAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO1");
 			using var dbContext = _context.CreateDbContext();
 			await InitializeDatabaseWithAnUser(dbContext, validAlbumDTO.UserName);
 
@@ -76,6 +40,48 @@ namespace MusicPlayerBackend.Tests.Repositories
 			//assert
 			Assert.NotNull(addAlbumResult);
 			Assert.Equal(expectedJson, actualJson);
+		}
+		[Theory]
+		[InlineData("Null")]
+		[InlineData("CoverImageNull")]
+		[InlineData("InvalidId")]
+		[InlineData("UsernameNull")]
+		[InlineData("UsernameTooShort")]
+		[InlineData("UsernameTooLong")]
+		[InlineData("UsernameHasSymbols")]
+		[InlineData("InvalidDuration")]
+		[InlineData("InvalidSongCount")]
+		[InlineData("AlbumNameNull")]
+		[InlineData("UploadDateInFuture")]
+		[InlineData("InvalidSongId")]
+		[InlineData("InvalidSongAlbumId")]
+		[InlineData("InvalidSongDuration")]
+		[InlineData("SongFileNull")]
+		[InlineData("SongUploadDateInFuture")]
+		public async void AlbumRepository_AddAsyncTest_InvalidValidAlbumDTO(string albumDTOType)
+		{
+			//arrange
+			var invalidAlbumDTO = _albumDTOs.GetAlbumDTO(albumDTOType);
+			using var dbContext = _context.CreateDbContext();
+
+			//act
+			var addAlbumResult = await _repository.AddAsync(invalidAlbumDTO);
+
+			//assert
+			Assert.Null(addAlbumResult);
+		}
+		[Fact]
+		public async void AlbumRepository_AddAsyncTest_UserDoesNotExist()
+		{
+			//arrange
+			var validAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO2");
+			using var dbContext = _context.CreateDbContext();
+
+			//act
+			var addAlbumResult = await _repository.AddAsync(validAlbumDTO);
+
+			//assert
+			Assert.Null(addAlbumResult);
 		}
 
 		private async Task InitializeDatabaseWithAnUser(AppDbContext dbContext, string userName)

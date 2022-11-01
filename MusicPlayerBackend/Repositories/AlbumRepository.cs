@@ -16,6 +16,9 @@ namespace MusicPlayerBackend.Repositories
 		}
 		public async Task<AlbumDTO?> AddAsync(AlbumDTO entity)
 		{
+			// TODO: Need to add user login logic first and ask for current user here.
+			// If current logged in user is same as album's user, then let it add the album.
+
 			if (!IsAlbumDTOValid(entity)) return null;
 
 			using var dbContext = _context.CreateDbContext();
@@ -94,11 +97,15 @@ namespace MusicPlayerBackend.Repositories
 
 		public Task<string> DeleteAsync(AlbumDTO entity)
 		{
+			// TODO: Need to add user login logic first and ask for current user here.
+			// If current logged in user is same as album's user, then let it delete the album
 			throw new NotImplementedException();
 		}
 
 		public Task<AlbumDTO?> UpdateAsync(AlbumDTO entity)
 		{
+			// TODO: Need to add user login logic first and ask for current user here.
+			// If current logged in user is same as album's user, then let it update the album.
 			throw new NotImplementedException();
 		}
 	}
