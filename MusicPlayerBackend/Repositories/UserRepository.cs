@@ -33,11 +33,8 @@ namespace MusicPlayerBackend.Repositories
 
 		public async Task<string> DeleteAsync(UserCredentialsDTO userCredentialsDTO)
 		{
-            //TODO: This user credentials validation will be removed when JWT token is ready
-            if (!_userCredentialsValidator.AreUserCredentialsValid(userCredentialsDTO)) return "Invalid request";
-
 			using var dbContext = _context.CreateDbContext();
-			User? user = await GetUserByNameAsync(userCredentialsDTO, dbContext);
+			User? user = await GetUserByNameAsync(userCredentialsDTO.UserName, dbContext);
 			if (user == null) return "User does not exist";
 
 			dbContext.Users.Remove(user);
@@ -45,19 +42,16 @@ namespace MusicPlayerBackend.Repositories
 			return "User deleted";
 		}
 
-		private static async Task<User?> GetUserByNameAsync(UserCredentialsDTO userCredentialsDTO, AppDbContext dbContext)
+		private static async Task<User?> GetUserByNameAsync(string userName, AppDbContext dbContext)
 		{
-			return await dbContext.Users.FirstOrDefaultAsync(u => u.Name.ToUpper() == userCredentialsDTO.UserName.ToUpper());
+			return await dbContext.Users.FirstOrDefaultAsync(u => u.Name.ToUpper() == userName.ToUpper());
 		}
 
 		public async Task<UserCredentialsDTO?> UpdateAsync(UserCredentialsDTO userCredentialsDTO)
 		{
-			//TODO: This user credentials validation will be removed when JWT token is ready
-			if (!_userCredentialsValidator.AreUserCredentialsValid(userCredentialsDTO)) return null;
-
 			using var dbContext = _context.CreateDbContext();
-			User? user = await GetUserByNameAsync(userCredentialsDTO, dbContext);
-			if (user == null) return null;
+			User? user = await GetUserByNameAsync(userCredentialsDTO.UserName, dbContext);
+			if (user == null) return null; //maybe remove this, because user can't be null if already logged in and authorized
 
 			user.Password = userCredentialsDTO.Password;
 			await dbContext.SaveChangesAsync();
@@ -67,12 +61,13 @@ namespace MusicPlayerBackend.Repositories
 
 		public async Task<UserDataDTO?> GetUserDataAsync(string userName)
 		{
-			if (!_userCredentialsValidator.IsUserNameValid(userName)) return null;
+			//if (!_userCredentialsValidator.IsUserNameValid(userName)) return null;  -- this is done in the controller
 
 			using var dbContext = _context.CreateDbContext();
 			var user = await dbContext.Users.Include(u => u.Albums).ThenInclude(a => a.Songs).FirstOrDefaultAsync(u => u.Name == userName);
-			if (user == null) return null;
+			if (user == null) return null; //maybe remove this, because user can't be null if already logged in and authorized
 			UserDataDTO userDTO = TransferUserDataToDTO(user);
+
 			return userDTO;
 		}
 
@@ -119,13 +114,13 @@ namespace MusicPlayerBackend.Repositories
 			};
 		}
 
-		public async Task<bool> CheckIfUserWithSameNameAndPasswordExists(UserCredentialsDTO user)
+		public async Task<bool> CheckIfUserExistsByUsernameAndPassword(UserCredentialsDTO user)
 		{
             using var dbContext = _context.CreateDbContext();
 
 			return await dbContext.Users.AnyAsync(x => x.Name == user.UserName && x.Password == user.Password);
         }
-        public async Task<bool> CheckIfUserWithSameNameExists(string userName)
+        public async Task<bool> CheckIfUserExistsByUsername(string userName)
         {
             using var dbContext = _context.CreateDbContext();
 

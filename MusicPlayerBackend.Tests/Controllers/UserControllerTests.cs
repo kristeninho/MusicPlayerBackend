@@ -72,7 +72,7 @@ namespace MusicPlayerBackend.Tests.Controllers
             };
             var expectedError = "Username already taken";
 
-            _userRepository.Setup(x => x.CheckIfUserWithSameNameExists(userCredentials.UserName))
+            _userRepository.Setup(x => x.CheckIfUserExistsByUsername(userCredentials.UserName))
                 .ReturnsAsync(true);
 
             var userController = new UserController(_userRepository.Object);
@@ -84,5 +84,8 @@ namespace MusicPlayerBackend.Tests.Controllers
             Assert.NotNull(addUserResult);
             Assert.Equal(expectedError, ((BadRequestObjectResult)addUserResult.Result).Value);
         }
+
+
+        // TODO: ADD TESTS FOR CONTROLLER!
     }
 }

@@ -5,7 +5,7 @@ namespace MusicPlayerBackend.Repositories.Interfaces
 	public interface IUserRepository: IBaseRepository<UserCredentialsDTO>
 	{
 		Task<UserDataDTO?> GetUserDataAsync(string userName);
-		Task<bool> CheckIfUserWithSameNameAndPasswordExists(UserCredentialsDTO user);
-		Task<bool> CheckIfUserWithSameNameExists(string userName);
+		Task<bool> CheckIfUserExistsByUsernameAndPassword(UserCredentialsDTO user);
+		Task<bool> CheckIfUserExistsByUsername(string userName);
     }
 }

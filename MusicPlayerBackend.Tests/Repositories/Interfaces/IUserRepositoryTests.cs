@@ -27,9 +27,9 @@ namespace MusicPlayerBackend.Tests.Repositories.Interfaces
 				UserName = "UserName1",
 				Password = "Password1!"
 			};
-            Assert.True(_iUserRepository.CheckIfUserWithSameNameAndPasswordExists(userCredentialsDTO) is Task<bool>);
+            Assert.True(_iUserRepository.CheckIfUserExistsByUsernameAndPassword(userCredentialsDTO) is Task<bool>);
         }
 		[Fact]
-		public void IUserRepositoryHasCheckIfUserWithSameNameExistsTaskTest() => Assert.True(_iUserRepository.CheckIfUserWithSameNameExists("UserName1") is Task<bool>);
+		public void IUserRepositoryHasCheckIfUserWithSameNameExistsTaskTest() => Assert.True(_iUserRepository.CheckIfUserExistsByUsername("UserName1") is Task<bool>);
 	}
 }
