@@ -30,7 +30,9 @@ namespace MusicPlayerBackend.Controllers
         // POST: api/User
         // Will create user if credentials are valid and return its credentials
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        // TODO: think about adding authorize here as well, since it will block against big attacks and ->
+        // -> use this request from my own admin account (so only admin can create users)
+        [HttpPost] 
         public async Task<ActionResult<UserCredentialsDTO>> AddUser(UserCredentialsDTO user)
         {
             if(!_userCredentialsValidator.AreUserCredentialsValid(user)) return BadRequest("Invalid user credentials");

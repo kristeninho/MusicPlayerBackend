@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicPlayerBackend.Data;
+using MusicPlayerBackend.Helpers;
 using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories.Interfaces;
@@ -10,9 +11,11 @@ namespace MusicPlayerBackend.Repositories
 	public class AlbumRepository : IAlbumRepository
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
+		private readonly UserCredentialsValidator _userCredentialsValidator;
 		public AlbumRepository(IDbContextFactory<AppDbContext> context)
 		{
 			_context = context;
+			_userCredentialsValidator = new UserCredentialsValidator();
 		}
 		public async Task<AlbumDTO?> AddAsync(AlbumDTO entity)
 		{
@@ -60,7 +63,7 @@ namespace MusicPlayerBackend.Repositories
 			if(entity == null 
 				|| entity.CoverImage == null 
 				|| entity.Id.ToString() == "00000000-0000-0000-0000-000000000000"
-				|| !IsUserNameValid(entity.UserName)
+				|| !_userCredentialsValidator.IsUserNameValid(entity.UserName)
 				|| entity.Duration.Length < 4
 				|| entity.Songs.Count < 1
 				|| entity.Name == null // maybe unnecessary
@@ -82,13 +85,6 @@ namespace MusicPlayerBackend.Repositories
 					|| song.SongFile == null
 					|| DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false;
 			}
-			return true;
-		}
-
-		private bool IsUserNameValid(string userName)
-		{
-			//username conditions: Length 3-15, Only letters and numbers
-			if (userName == null || userName.Length < 3 || userName.Length > 15 || userName.Any(ch => !char.IsLetterOrDigit(ch))) return false;
 			return true;
 		}
 
