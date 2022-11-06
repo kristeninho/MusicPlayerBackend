@@ -52,36 +52,39 @@ namespace MusicPlayerBackend.Tests.Repositories
 			Assert.Equal(validUserCredentialsDTO.UserName, newUserInDatabase.Name);
 			Assert.Equal(validUserCredentialsDTO.Password, newUserInDatabase.Password);
 		}
-		[Theory]
-		[InlineData(null, "Password1$")] // null username
-		[InlineData("Us", "Password1$")] // too short username
-		[InlineData("UserWithTooLongUserName", "Password1$")] // too long username
-		[InlineData("username!", "Password1$")] // punctuation in username
-		[InlineData("username€", "Password1$")] // symbol in username
-		[InlineData("username", null)] // null password
-		[InlineData("username", "Pas!1")] // too short password
-		[InlineData("username", "Password1!TooLongPasswordTooLong")] // too long password
-		[InlineData("username", "Password1")] // no symbol or punctuation in password
-		[InlineData("username", "Password!")] // no number in password
-		[InlineData("username", "password1!")] // no uppercase char in password
-		public async void UserRepository_AddAsyncTest_InvalidUser(string userName, string password)
-		{
-			//arrange
-			var invalidUserCredentialsDTO = new UserCredentialsDTO
-			{
-				UserName = userName,
-				Password = password
-			};
-			using var dbContext = _context.CreateDbContext();
 
-			//act
-			var addUserResult = await _repository.AddAsync(invalidUserCredentialsDTO);
-			var userInDatabase = await dbContext.Users.FirstOrDefaultAsync(u => u.Name == invalidUserCredentialsDTO.UserName);
+		// TODO: This test has to be moved, since the username validation was moved
 
-			//assert
-			Assert.Null(addUserResult);
-			Assert.Null(userInDatabase);
-		}
+		//[Theory]
+		//[InlineData(null, "Password1$")] // null username
+		//[InlineData("Us", "Password1$")] // too short username
+		//[InlineData("UserWithTooLongUserName", "Password1$")] // too long username
+		//[InlineData("username!", "Password1$")] // punctuation in username
+		//[InlineData("username€", "Password1$")] // symbol in username
+		//[InlineData("username", null)] // null password
+		//[InlineData("username", "Pas!1")] // too short password
+		//[InlineData("username", "Password1!TooLongPasswordTooLong")] // too long password
+		//[InlineData("username", "Password1")] // no symbol or punctuation in password
+		//[InlineData("username", "Password!")] // no number in password
+		//[InlineData("username", "password1!")] // no uppercase char in password
+		//public async void UserRepository_AddAsyncTest_InvalidUser(string userName, string password)
+		//{
+		//	//arrange
+		//	var invalidUserCredentialsDTO = new UserCredentialsDTO
+		//	{
+		//		UserName = userName,
+		//		Password = password
+		//	};
+		//	using var dbContext = _context.CreateDbContext();
+
+		//	//act
+		//	var addUserResult = await _repository.AddAsync(invalidUserCredentialsDTO);
+		//	var userInDatabase = await dbContext.Users.FirstOrDefaultAsync(u => u.Name == invalidUserCredentialsDTO.UserName);
+
+		//	//assert
+		//	Assert.Null(addUserResult);
+		//	Assert.Null(userInDatabase);
+		//}
 		[Fact]
 		public async void UserRepository_DeleteAsyncTest_UserExists()
 		{
@@ -118,19 +121,21 @@ namespace MusicPlayerBackend.Tests.Repositories
 			//assert
 			Assert.Equal(expectedResult, deleteUserResult);
 		}
-		[Fact]
-		public async void UserRepository_DeleteAsyncTest_InvalidRequest()
-		{
-			//arrange
-			var invalidUserCredentialsDTO = new UserCredentialsDTO();
 
-			//act
-			var deleteUserResult = await _repository.DeleteAsync(invalidUserCredentialsDTO);
-			var expectedResult = "Invalid request";
+		// Has to be moved because of the user credentials validator
+		//[Fact]
+		//public async void UserRepository_DeleteAsyncTest_InvalidPassword()
+		//{
+		//	//arrange
+		//	var invalidUserCredentialsDTO = new UserCredentialsDTO();
 
-			//assert
-			Assert.Equal(expectedResult, deleteUserResult);
-		}
+		//	//act
+		//	var deleteUserResult = await _repository.DeleteAsync(invalidUserCredentialsDTO);
+		//	var expectedResult = "Invalid Password";
+
+		//	//assert
+		//	Assert.Equal(expectedResult, deleteUserResult);
+		//}
 		[Fact]
 		public async void UserRepository_UpdateAsyncTest_UserUpdated()
 		{
@@ -235,8 +240,74 @@ namespace MusicPlayerBackend.Tests.Repositories
 			//assert
 			Assert.Null(getUserDataResult);
 		}
+        [Fact]
+        public async void UserRepository_CheckIfUserWithSameNameAndPasswordExistsTest_UserExists()
+        {
+            //arrange
+            var validUserCredentialsDTO = new UserCredentialsDTO
+            {
+                UserName = "Username9",
+                Password = "Password9$"
+            };
+			await _repository.AddAsync(validUserCredentialsDTO);
 
-		private async Task<User> InitializeDatabaseAndReturnUser(AppDbContext dbContext, string userName)
+            //act
+            var userExistsResult = await _repository.CheckIfUserExistsByUsernameAndPassword(validUserCredentialsDTO);
+
+            //assert
+            Assert.True(userExistsResult);
+        }
+        [Fact]
+        public async void UserRepository_CheckIfUserWithSameNameAndPasswordExistsTest_UserDoesNotExists()
+        {
+            //arrange
+            var validUserCredentialsDTO = new UserCredentialsDTO
+            {
+                UserName = "Username90",
+                Password = "Password9$"
+            };
+
+            //act
+            var userExistsResult = await _repository.CheckIfUserExistsByUsernameAndPassword(validUserCredentialsDTO);
+
+            //assert
+            Assert.False(userExistsResult);
+        }
+        [Fact]
+        public async void UserRepository_CheckIfUserWithSameNameExistsTest_UserExistsAlready()
+        {
+            //arrange
+            var validUserCredentialsDTO = new UserCredentialsDTO
+            {
+                UserName = "Username11",
+                Password = "Password9$"
+            };
+			await _repository.AddAsync(validUserCredentialsDTO);
+
+            //act
+            var userExistsResult = await _repository.CheckIfUserExistsByUsername(validUserCredentialsDTO.UserName);
+
+            //assert
+            Assert.True(userExistsResult);
+        }
+        [Fact]
+        public async void UserRepository_CheckIfUserWithSameNameExistsTest_UserDoesNotExist()
+        {
+            //arrange
+            var validUserCredentialsDTO = new UserCredentialsDTO
+            {
+                UserName = "Username111",
+                Password = "Password9$"
+            };
+
+            //act
+            var userExistsResult = await _repository.CheckIfUserExistsByUsername(validUserCredentialsDTO.UserName);
+
+            //assert
+            Assert.False(userExistsResult);
+        }
+
+        private async Task<User> InitializeDatabaseAndReturnUser(AppDbContext dbContext, string userName)
 		{
 			var validUserCredentialsDTO = new UserCredentialsDTO
 			{
