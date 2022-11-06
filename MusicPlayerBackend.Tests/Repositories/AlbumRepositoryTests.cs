@@ -83,6 +83,67 @@ namespace MusicPlayerBackend.Tests.Repositories
 			//assert
 			Assert.Null(addAlbumResult);
 		}
+		[Fact]
+		public async void AlbumRepository_DeleteAsyncTest_AlbumDeleted()
+		{
+			//arrange
+			var validAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO3");
+			using var dbContext = _context.CreateDbContext();
+			await InitializeDatabaseWithAnUser(dbContext, validAlbumDTO.UserName);
+			await _repository.AddAsync(validAlbumDTO);
+
+			//act
+			var deleteAlbumResult = await _repository.DeleteAsync(validAlbumDTO.Id.ToString());
+
+			//assert
+			Assert.NotNull(deleteAlbumResult);
+			Assert.Equal("Album deleted", deleteAlbumResult);
+		}
+		[Fact]
+		public async void AlbumRepository_DeleteAsyncTest_AlbumDoesNotExist()
+		{
+			//arrange
+			var validAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO2");
+			using var dbContext = _context.CreateDbContext();
+
+			//act
+			var deleteAlbumResult = await _repository.DeleteAsync(validAlbumDTO.Id.ToString());
+
+			//assert
+			Assert.NotNull(deleteAlbumResult);
+			Assert.Equal("Album does not exist", deleteAlbumResult);
+		}
+		[Fact]
+		public async void AlbumRepository_UpdateAsyncTest_AlbumUpdated()
+		{
+			//arrange
+			var validAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO4");
+			using var dbContext = _context.CreateDbContext();
+			await InitializeDatabaseWithAnUser(dbContext, validAlbumDTO.UserName);
+			await _repository.AddAsync(validAlbumDTO);
+
+			var updatedValidAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO5"); //same id as validalbumdto4
+
+			//act
+			var updateAlbumResult = await _repository.UpdateAsync(updatedValidAlbumDTO);
+
+			//assert
+			Assert.NotNull(updateAlbumResult);
+			Assert.Equal(updatedValidAlbumDTO, updateAlbumResult);
+		}
+		[Fact]
+		public async void AlbumRepository_UpdateAsyncTest_AlbumDoesNotExist()
+		{
+			//arrange
+			var validAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO6");
+			using var dbContext = _context.CreateDbContext();
+
+			//act
+			var updateAlbumResult = await _repository.UpdateAsync(validAlbumDTO);
+
+			//assert
+			Assert.Null(updateAlbumResult);
+		}
 
 		private async Task InitializeDatabaseWithAnUser(AppDbContext dbContext, string userName)
 		{

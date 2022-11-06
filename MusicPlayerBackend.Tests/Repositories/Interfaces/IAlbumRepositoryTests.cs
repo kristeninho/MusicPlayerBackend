@@ -16,6 +16,6 @@ namespace MusicPlayerBackend.Tests.Repositories.Interfaces
 		[Fact]
 		public void IAlbumRepositoryHasUpdateAsyncTaskTest() => Assert.True(_iAlbumRepository.UpdateAsync(new AlbumDTO()) is Task<AlbumDTO>);
 		[Fact]
-		public void IAlbumRepositoryHasDeleteAsyncTaskTest() => Assert.True(_iAlbumRepository.DeleteAsync(new AlbumDTO()) is Task<string>);
+		public void IAlbumRepositoryHasDeleteAsyncTaskTest() => Assert.True(_iAlbumRepository.DeleteAsync("") is Task<string>);
 	}
 }

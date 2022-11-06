@@ -31,14 +31,15 @@ namespace MusicPlayerBackend.Repositories
             return userCredentialsDTO;
         }
 
-		public async Task<string> DeleteAsync(UserCredentialsDTO userCredentialsDTO)
+		public async Task<string> DeleteAsync(string userName)
 		{
 			using var dbContext = _context.CreateDbContext();
-			User? user = await GetUserByNameAsync(userCredentialsDTO.UserName, dbContext);
+			User? user = await GetUserByNameAsync(userName, dbContext);
 			if (user == null) return "User does not exist";
 
 			dbContext.Users.Remove(user);
 			await dbContext.SaveChangesAsync();
+
 			return "User deleted";
 		}
 

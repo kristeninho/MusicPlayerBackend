@@ -80,7 +80,7 @@ namespace MusicPlayerBackend.Controllers
             if (!_userCredentialsValidator.IsUserNameValid(user.UserName)) return BadRequest("Invalid username");
             if (!await _userRepository.CheckIfUserExistsByUsernameAndPassword(user)) return BadRequest("Invalid Password"); //this is like a password confirmation here
 
-            var response = await _userRepository.DeleteAsync(user);
+            var response = await _userRepository.DeleteAsync(user.UserName);
 
             return Ok(response);
         }

@@ -21,8 +21,9 @@ namespace MusicPlayerBackend.Repositories
 		{
 			// TODO: Need to add user login logic first and ask for current user here.
 			// If current logged in user is same as album's user, then let it add the album.
+			// Can probably read the username from JWT token
 
-			if (!IsAlbumDTOValid(entity)) return null;
+			if (!IsAlbumDTOValid(entity)) return null; //this check should be done seperately, maybe in controller
 
 			using var dbContext = _context.CreateDbContext();
 
@@ -91,18 +92,44 @@ namespace MusicPlayerBackend.Repositories
 			return true;
 		}
 
-		public Task<string> DeleteAsync(AlbumDTO entity)
+		public async Task<string> DeleteAsync(string albumId)
 		{
 			// TODO: Need to add user login logic first and ask for current user here.
 			// If current logged in user is same as album's user, then let it delete the album
-			throw new NotImplementedException();
+			// Can probably read the username from JWT token, but the CURRENTUSER check will be done in Controller
+
+			using var dbContext = _context.CreateDbContext();
+			var album = await dbContext.Albums.Include(x => x.Songs).FirstOrDefaultAsync(a => a.Id == new Guid(albumId));
+			if(album == null) return "Album does not exist";
+
+			dbContext.Albums.Remove(album);
+			await dbContext.SaveChangesAsync();
+
+			return "Album deleted";
 		}
 
-		public Task<AlbumDTO?> UpdateAsync(AlbumDTO entity)
+		public async Task<AlbumDTO?> UpdateAsync(AlbumDTO entity)
 		{
 			// TODO: Need to add user login logic first and ask for current user here.
 			// If current logged in user is same as album's user, then let it update the album.
-			throw new NotImplementedException();
+			// Can probably read the username from JWT token and will need to check that some info does not change
+			// for example username and albumId
+
+
+			// songs will not be updated here
+			if (!IsAlbumDTOValid(entity)) return null; //this check should be done seperately, maybe in controller
+
+			using var dbContext = _context.CreateDbContext();
+
+			var album = await dbContext.Albums.Include(x => x.Songs).FirstOrDefaultAsync(a => a.Id==entity.Id);
+			if (album == null) return null;
+
+			album.UploadDate=entity.UploadDate;
+			album.CoverImage = entity.CoverImage;
+			album.Name = entity.Name;
+			await dbContext.SaveChangesAsync();
+
+			return entity;
 		}
 	}
 }

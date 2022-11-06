@@ -99,6 +99,170 @@ namespace MusicPlayerBackend.Tests.Helpers
 						}
 					}
 			},
+			{"validAlbumDTO3",
+				new AlbumDTO
+					{
+						Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d94"),
+						Name = "Album3",
+						UserName = "Username3",
+						Duration = "30:00",
+						CoverImage = new byte[100],
+						UploadDate = DateTime.Now,
+						Songs = new List<SongDTO>()
+						{
+							new SongDTO
+							{
+								Name = "Song1",
+								Duration = "10:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d94")
+							},
+							new SongDTO
+							{
+								Name = "Song2",
+								Duration = "12:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d94")
+							},
+							new SongDTO
+							{
+								Name = "Song3",
+								Duration = "08:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d94")
+							},
+						}
+					}
+			},
+			{"validAlbumDTO4",
+				new AlbumDTO
+					{
+						Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93"),
+						Name = "Album3",
+						UserName = "Username4",
+						Duration = "30:00",
+						CoverImage = new byte[100],
+						UploadDate = DateTime.Now,
+						Songs = new List<SongDTO>()
+						{
+							new SongDTO
+							{
+								Name = "Song1",
+								Duration = "10:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
+							},
+							new SongDTO
+							{
+								Name = "Song2",
+								Duration = "12:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
+							},
+							new SongDTO
+							{
+								Name = "Song3",
+								Duration = "08:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
+							},
+						}
+					}
+			},
+			{"validAlbumDTO5",
+				new AlbumDTO
+					{
+						Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93"),
+						Name = "Album4",
+						UserName = "Username4",
+						Duration = "30:00",
+						CoverImage = new byte[100],
+						UploadDate = DateTime.Now,
+						Songs = new List<SongDTO>()
+						{
+							new SongDTO
+							{
+								Name = "Song1",
+								Duration = "10:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
+							},
+							new SongDTO
+							{
+								Name = "Song2",
+								Duration = "12:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
+							},
+							new SongDTO
+							{
+								Name = "Song3",
+								Duration = "08:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
+							}
+						}
+					}
+			},
+			{"validAlbumDTO6",
+				new AlbumDTO
+					{
+						Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d92"),
+						Name = "Album4",
+						UserName = "Username6",
+						Duration = "30:00",
+						CoverImage = new byte[100],
+						UploadDate = DateTime.Now,
+						Songs = new List<SongDTO>()
+						{
+							new SongDTO
+							{
+								Name = "Song1",
+								Duration = "10:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d92")
+							},
+							new SongDTO
+							{
+								Name = "Song2",
+								Duration = "12:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d92")
+							},
+							new SongDTO
+							{
+								Name = "Song3",
+								Duration = "08:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d92")
+							}
+						}
+					}
+			},
 			{"Null", new AlbumDTO{}},
 			{"CoverImageNull", 
 				new AlbumDTO

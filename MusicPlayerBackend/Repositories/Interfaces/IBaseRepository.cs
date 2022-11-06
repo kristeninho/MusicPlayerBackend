@@ -4,6 +4,6 @@
 	{
 		Task<T?> AddAsync(T entity);
 		Task<T?> UpdateAsync(T entity);
-		Task<string> DeleteAsync(T entity);
+		Task<string> DeleteAsync(string entity);
 	}
 }

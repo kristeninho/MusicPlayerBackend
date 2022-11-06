@@ -98,7 +98,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 
 			//act
 			await _repository.AddAsync(validUserCredentialsDTO);
-			var deleteUserResult = await _repository.DeleteAsync(validUserCredentialsDTO);
+			var deleteUserResult = await _repository.DeleteAsync(validUserCredentialsDTO.UserName);
 			var expectedResult = "User deleted";
 
 			//assert
@@ -115,7 +115,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 			};
 
 			//act
-			var deleteUserResult = await _repository.DeleteAsync(validUserCredentialsDTO);
+			var deleteUserResult = await _repository.DeleteAsync(validUserCredentialsDTO.UserName);
 			var expectedResult = "User does not exist";
 
 			//assert

@@ -15,7 +15,7 @@ namespace MusicPlayerBackend.Tests.Repositories.Interfaces
 		[Fact]
 		public void IBaseRepositoryHasUpdateAsyncTaskTest() => Assert.True(_iBaseRepository.UpdateAsync(new TestType()) is Task<TestType>);
 		[Fact]
-		public void IBaseRepositoryHasDeleteAsyncTaskTest() => Assert.True(_iBaseRepository.DeleteAsync(new TestType()) is Task<string>);
+		public void IBaseRepositoryHasDeleteAsyncTaskTest() => Assert.True(_iBaseRepository.DeleteAsync("") is Task<string>);
 	}
 	public class TestType
 	{
