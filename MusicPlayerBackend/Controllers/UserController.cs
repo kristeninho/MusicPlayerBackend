@@ -19,12 +19,12 @@ namespace MusicPlayerBackend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        private readonly UserCredentialsValidator _userCredentialsValidator;
+        private readonly Validator _userCredentialsValidator;
 
         public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _userCredentialsValidator = new UserCredentialsValidator();
+            _userCredentialsValidator = new Validator();
         }
 
         // POST: api/User

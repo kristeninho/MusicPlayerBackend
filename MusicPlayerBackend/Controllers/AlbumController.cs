@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MusicPlayerBackend.Data;
 using MusicPlayerBackend.Models;
+using MusicPlayerBackend.Models.DTOs;
 
 namespace MusicPlayerBackend.Controllers
 {
@@ -15,6 +16,11 @@ namespace MusicPlayerBackend.Controllers
     [ApiController, Authorize]
     public class AlbumController : ControllerBase
     {
-        
+        //Add
+        [HttpPost]
+        public async Task<ActionResult<AlbumDTO>> AddAlbum(AlbumDTO album)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -10,11 +10,11 @@ namespace MusicPlayerBackend.Repositories
 	public class UserRepository : IUserRepository
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
-		private readonly UserCredentialsValidator _userCredentialsValidator;
+		private readonly Validator _validator;
 		public UserRepository(IDbContextFactory<AppDbContext> context)
 		{
 			_context = context;
-			_userCredentialsValidator = new UserCredentialsValidator();
+			_validator = new Validator();
 		}
 
 		public async Task<UserCredentialsDTO?> AddAsync(UserCredentialsDTO userCredentialsDTO)

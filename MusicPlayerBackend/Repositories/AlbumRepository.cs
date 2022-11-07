@@ -11,11 +11,11 @@ namespace MusicPlayerBackend.Repositories
 	public class AlbumRepository : IAlbumRepository
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
-		private readonly UserCredentialsValidator _userCredentialsValidator;
+		private readonly Validator _validator;
 		public AlbumRepository(IDbContextFactory<AppDbContext> context)
 		{
 			_context = context;
-			_userCredentialsValidator = new UserCredentialsValidator();
+			_validator = new Validator();
 		}
 		public async Task<AlbumDTO?> AddAsync(AlbumDTO entity)
 		{
@@ -23,7 +23,7 @@ namespace MusicPlayerBackend.Repositories
 			// If current logged in user is same as album's user, then let it add the album.
 			// Can probably read the username from JWT token
 
-			if (!IsAlbumDTOValid(entity)) return null; //this check should be done seperately, maybe in controller
+			if (!_validator.IsAlbumDTOValid(entity)) return null; //this check should be done seperately, maybe in controller
 
 			using var dbContext = _context.CreateDbContext();
 
@@ -62,35 +62,8 @@ namespace MusicPlayerBackend.Repositories
 			return user;
 		}
 
-		private bool IsAlbumDTOValid(AlbumDTO entity)
-		{
-			if(entity == null 
-				|| entity.CoverImage == null 
-				|| entity.Id.ToString() == "00000000-0000-0000-0000-000000000000"
-				|| !_userCredentialsValidator.IsUserNameValid(entity.UserName)
-				|| entity.Duration.Length < 4
-				|| entity.Songs.Count < 1
-				|| entity.Name == null // maybe unnecessary
-				|| entity.Name.Length < 1
-				|| DateTime.Compare(DateTime.Now, entity.UploadDate) < 0 
-				|| !AreSongDTOsValid(entity.Id, entity.Songs)
-				) return false;
-			return true;
-		}
 
-		private bool AreSongDTOsValid(Guid albumId, List<SongDTO> songs)
-		{
-			foreach(var song in songs)
-			{
-				if (song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
-					|| song.AlbumId != albumId
-					|| song.Duration.Length < 4
-					|| song.Name.Length < 1
-					|| song.SongFile == null
-					|| DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false;
-			}
-			return true;
-		}
+
 
 		public async Task<string> DeleteAsync(string albumId)
 		{
@@ -117,7 +90,7 @@ namespace MusicPlayerBackend.Repositories
 
 
 			// songs will not be updated here
-			if (!IsAlbumDTOValid(entity)) return null; //this check should be done seperately, maybe in controller
+			if (!!_validator.IsAlbumDTOValid(entity)) return null; //this check should be done seperately, maybe in controller
 
 			using var dbContext = _context.CreateDbContext();
 

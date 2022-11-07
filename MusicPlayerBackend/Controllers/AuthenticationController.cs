@@ -16,19 +16,19 @@ namespace MusicPlayerBackend.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly UserCredentialsValidator _userCredentialsValidator;
+        private readonly Validator _validator;
         private readonly IUserRepository _userRepository;
 
         public AuthenticationController(IUserRepository userRepository)
         {
-            _userCredentialsValidator = new UserCredentialsValidator();
+            _validator = new Validator();
             _userRepository = userRepository;
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] UserCredentialsDTO user)
         {
-            if (user == null || !_userCredentialsValidator.AreUserCredentialsValid(user)) return BadRequest("Invalid user request");
+            if (user == null || !_validator.AreUserCredentialsValid(user)) return BadRequest("Invalid user request");
 
             //TODO: check for user in the database here. if user exists then check if password matches.
             if (await _userRepository.CheckIfUserExistsByUsernameAndPassword(user))
