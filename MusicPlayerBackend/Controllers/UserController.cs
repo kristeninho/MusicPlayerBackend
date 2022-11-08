@@ -19,12 +19,12 @@ namespace MusicPlayerBackend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        private readonly Validator _userCredentialsValidator;
+        private readonly Validator _validator;
 
         public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _userCredentialsValidator = new Validator();
+            _validator = new Validator();
         }
 
         // POST: api/User
@@ -35,7 +35,7 @@ namespace MusicPlayerBackend.Controllers
         [HttpPost] 
         public async Task<ActionResult<UserCredentialsDTO>> AddUser(UserCredentialsDTO user)
         {
-            if(!_userCredentialsValidator.AreUserCredentialsValid(user)) return BadRequest("Invalid user credentials");
+            if(!_validator.AreUserCredentialsValid(user)) return BadRequest("Invalid user credentials");
             if (await _userRepository.CheckIfUserExistsByUsername(user.UserName)) return BadRequest("Username already taken");
 
             var userResult = await _userRepository.AddAsync(user);
@@ -48,7 +48,7 @@ namespace MusicPlayerBackend.Controllers
 		[HttpGet, Authorize]
         public async Task<ActionResult<UserDataDTO>> GetUserData(string userName)
 		{
-            if (!_userCredentialsValidator.IsUserNameValid(userName)) return BadRequest("Invalid username");
+            if (!_validator.IsUserNameValid(userName)) return BadRequest("Invalid username");
             if (!await _userRepository.CheckIfUserExistsByUsername(userName)) return BadRequest("User does not exist");
             //previous line maybe unnecessary, because user has to be logged in and have valid userName to be authorized for the request. So has to exist.
 
@@ -62,7 +62,7 @@ namespace MusicPlayerBackend.Controllers
 		[HttpPut, Authorize]
         public async Task<ActionResult<UserCredentialsDTO>> UpdateUserCredentials(UserCredentialsDTO user)
 		{
-            if (!_userCredentialsValidator.AreUserCredentialsValid(user)) return BadRequest("Invalid user credentials");
+            if (!_validator.AreUserCredentialsValid(user)) return BadRequest("Invalid user credentials");
             if (!await _userRepository.CheckIfUserExistsByUsername(user.UserName)) return BadRequest("User does not exist");
             //previous line maybe unnecessary, because user has to be logged in and have valid userName to be authorized for the request. So has to exist.
 
@@ -77,7 +77,7 @@ namespace MusicPlayerBackend.Controllers
 		[HttpDelete, Authorize]
         public async Task<ActionResult<string>> DeleteUser(UserCredentialsDTO user)
 		{
-            if (!_userCredentialsValidator.IsUserNameValid(user.UserName)) return BadRequest("Invalid username");
+            if (!_validator.IsUserNameValid(user.UserName)) return BadRequest("Invalid username");
             if (!await _userRepository.CheckIfUserExistsByUsernameAndPassword(user)) return BadRequest("Invalid Password"); //this is like a password confirmation here
 
             var response = await _userRepository.DeleteAsync(user.UserName);
