@@ -30,7 +30,7 @@ namespace MusicPlayerBackend.Helpers
             if (entity == null
                 || entity.CoverImage == null
                 || entity.Id.ToString() == "00000000-0000-0000-0000-000000000000"
-                || IsUserNameValid(entity.UserName)
+                || !IsUserNameValid(entity.UserName)
                 || entity.Duration.Length < 4
                 || entity.Songs.Count < 1
                 || entity.Name == null // maybe unnecessary
@@ -44,7 +44,7 @@ namespace MusicPlayerBackend.Helpers
         {
             foreach (var song in songs)
             {
-                if (!IsSongDTOValid(song, albumId)) return false;                
+                if (!IsSongDTOValid(song, albumId)) return false;
             }
             return true;
         }
@@ -52,6 +52,17 @@ namespace MusicPlayerBackend.Helpers
         {
             if (song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
                     || song.AlbumId != albumId
+                    || song.Duration.Length < 4
+                    || song.Name.Length < 1
+                    || song.SongFile == null
+                    || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false;
+            return true;
+        }
+        public bool IsSongDTOValid(SongDTO song)
+        {
+            //for singe song adding
+            if (song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
+                    || song.AlbumId.ToString() == "00000000-0000-0000-0000-000000000000"
                     || song.Duration.Length < 4
                     || song.Name.Length < 1
                     || song.SongFile == null

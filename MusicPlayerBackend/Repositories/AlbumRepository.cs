@@ -62,9 +62,6 @@ namespace MusicPlayerBackend.Repositories
 			return user;
 		}
 
-
-
-
 		public async Task<string> DeleteAsync(string albumId)
 		{
 			// TODO: Need to add user login logic first and ask for current user here.
@@ -81,7 +78,7 @@ namespace MusicPlayerBackend.Repositories
 			return "Album deleted";
 		}
 
-		public async Task<AlbumDTO?> UpdateAsync(AlbumDTO entity)
+		public async Task<AlbumDTO?> UpdateAsync(AlbumDTO albumDTO)
 		{
 			// TODO: Need to add user login logic first and ask for current user here.
 			// If current logged in user is same as album's user, then let it update the album.
@@ -90,19 +87,20 @@ namespace MusicPlayerBackend.Repositories
 
 
 			// songs will not be updated here
-			if (!!_validator.IsAlbumDTOValid(entity)) return null; //this check should be done seperately, maybe in controller
+			if (!_validator.IsAlbumDTOValid(albumDTO)) return null; //this check should be done seperately, maybe in controller
 
 			using var dbContext = _context.CreateDbContext();
 
-			var album = await dbContext.Albums.Include(x => x.Songs).FirstOrDefaultAsync(a => a.Id==entity.Id);
+			var album = await dbContext.Albums.Include(x => x.Songs).FirstOrDefaultAsync(a => a.Id==albumDTO.Id);
 			if (album == null) return null;
 
-			album.UploadDate=entity.UploadDate;
-			album.CoverImage = entity.CoverImage;
-			album.Name = entity.Name;
+			album.UploadDate=albumDTO.UploadDate;
+			album.Duration = album.Duration;
+			album.CoverImage = albumDTO.CoverImage;
+			album.Name = albumDTO.Name;
 			await dbContext.SaveChangesAsync();
 
-			return entity;
+			return albumDTO;
 		}
 	}
 }

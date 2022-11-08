@@ -17,6 +17,18 @@ namespace MusicPlayerBackend.Tests.Helpers
 
 		private Dictionary<string, AlbumDTO> albumDTOs = new Dictionary<string, AlbumDTO>()
 		{
+			{"DEMOS",
+				new AlbumDTO
+				{
+					Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d91"),
+					Name = "DEMOS",
+					UserName = "Username1",
+					Duration = "20:00",
+					CoverImage = new byte[100],
+					UploadDate = DateTime.Now,
+					Songs = new List<SongDTO>()
+				}
+			},
 			{"validAlbumDTO1", 
 				new AlbumDTO
 					{
@@ -259,6 +271,47 @@ namespace MusicPlayerBackend.Tests.Helpers
 								UploadDate = DateTime.Now,
 								SongFile = new byte[100],
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d92")
+							}
+						}
+					}
+			},
+			{"validAlbumDTO7",
+				new AlbumDTO
+					{
+						Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d12"),
+						Name = "Album4",
+						UserName = "Username7",
+						Duration = "30:00",
+						CoverImage = new byte[100],
+						UploadDate = DateTime.Now,
+						Songs = new List<SongDTO>()
+						{
+							new SongDTO
+							{
+								Name = "Song1",
+								Duration = "10:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d12")
+							},
+							new SongDTO
+							{
+								Name = "Song2",
+								Duration = "12:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d12")
+							},
+							new SongDTO
+							{
+								Name = "Song3",
+								Duration = "08:00",
+								Id = Guid.NewGuid(),
+								UploadDate = DateTime.Now,
+								SongFile = new byte[100],
+								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d12")
 							}
 						}
 					}
