@@ -49,7 +49,7 @@ namespace MusicPlayerBackend.Controllers
         public async Task<ActionResult<UserDataDTO>> GetUserData(string userName)
 		{
             if (!_validator.IsUserNameValid(userName)) return BadRequest("Invalid username");
-            if (!await _userRepository.CheckIfUserExistsByUsername(userName)) return BadRequest("User does not exist");
+            if (!await _userRepository.CheckIfUserExistsByUsername(userName)) return NotFound("User does not exist");
             //previous line maybe unnecessary, because user has to be logged in and have valid userName to be authorized for the request. So has to exist.
 
             var userData = await _userRepository.GetUserDataAsync(userName);
@@ -63,7 +63,7 @@ namespace MusicPlayerBackend.Controllers
         public async Task<ActionResult<UserCredentialsDTO>> UpdateUserCredentials(UserCredentialsDTO user)
 		{
             if (!_validator.AreUserCredentialsValid(user)) return BadRequest("Invalid user credentials");
-            if (!await _userRepository.CheckIfUserExistsByUsername(user.UserName)) return BadRequest("User does not exist");
+            if (!await _userRepository.CheckIfUserExistsByUsername(user.UserName)) return NotFound("User does not exist");
             //previous line maybe unnecessary, because user has to be logged in and have valid userName to be authorized for the request. So has to exist.
 
             var userData = await _userRepository.UpdateAsync(user);

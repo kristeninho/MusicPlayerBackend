@@ -26,7 +26,7 @@ namespace MusicPlayerBackend.Controllers
             _validator = new Validator();
 		}
 
-        // POST: api/Album
+        // POST: api/album
         // Will add album to user
         [HttpPost]
         public async Task<ActionResult<AlbumDTO>> AddAlbum(AlbumDTO album)
@@ -42,11 +42,12 @@ namespace MusicPlayerBackend.Controllers
 
         // PUT: api/album
         // Will update the album
+        [HttpPut]
         public async Task<ActionResult<AlbumDTO>> UpdateAlbum(AlbumDTO album)
 		{
             if (!_validator.IsAlbumDTOValid(album)) return BadRequest("Invalid album");
             //Check here from JWT if the album user is same as JWT login user
-            if (!await _albumRepository.CheckIfAlbumExists(album.Id)) return BadRequest("Album you're trying to update does not exist");
+            if (!await _albumRepository.CheckIfAlbumExists(album.Id)) return NotFound("Album you're trying to update does not exist");
 
             var albumResult = await _albumRepository.UpdateAsync(album);
 
@@ -55,11 +56,12 @@ namespace MusicPlayerBackend.Controllers
 
         // DELETE: api/album
         // Will delete the album
+        [HttpDelete]
         public async Task<ActionResult<string>> DeleteAlbum(AlbumDTO album)
 		{
             if (!_validator.IsAlbumDTOValid(album)) return BadRequest("Invalid album");
             //Check here from JWT if the album user is same as JWT login user
-            if (!await _albumRepository.CheckIfAlbumExists(album.Id)) return BadRequest("Album you're trying to delete does not exist");
+            if (!await _albumRepository.CheckIfAlbumExists(album.Id)) return NotFound("Album you're trying to delete does not exist");
 
             var result = await _albumRepository.DeleteAsync(album.Id.ToString());
 

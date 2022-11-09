@@ -19,8 +19,6 @@ namespace MusicPlayerBackend.Repositories
 
         public async Task<SongDTO?> AddAsync(SongDTO songDTO)
         {
-            if (!_validator.IsSongDTOValid(songDTO)) return null; //this will be moved to controller
-
             using var dbContext = _context.CreateDbContext();
             
             //Checking if album exists. If not then add to general "DEMOS" album
@@ -58,8 +56,6 @@ namespace MusicPlayerBackend.Repositories
 
         public async Task<SongDTO?> UpdateAsync(SongDTO songDTO)
         {
-            if (!_validator.IsSongDTOValid(songDTO)) return null; //this will be moved to controller
-            
             using var dbContext = _context.CreateDbContext();
 
             var song = await dbContext.Songs.FirstOrDefaultAsync(x => x.Id == songDTO.Id);
@@ -69,11 +65,20 @@ namespace MusicPlayerBackend.Repositories
             song.Duration = songDTO.Duration;
             song.SongFile = songDTO.SongFile;
             song.Name = songDTO.Name;
+
             var newAlbum = await dbContext.Albums.FirstOrDefaultAsync(x => x.Id == songDTO.AlbumId);
             if (newAlbum != null) song.Album = newAlbum;
+
             await dbContext.SaveChangesAsync();
 
             return songDTO;
+        }
+
+        public async Task<bool> CheckIfSongExists(Guid songId)
+        {
+            var dbContext = _context.CreateDbContext();
+
+            return await dbContext.Albums.AnyAsync(x => x.Id == songId);
         }
     }
 }
