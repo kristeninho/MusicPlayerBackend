@@ -39,10 +39,13 @@ namespace MusicPlayerBackend.Controllers
                     (
                         issuer: ConfigurationManager.AppSetting["JWT:ValidIssuer"],
                         audience: ConfigurationManager.AppSetting["JWT:ValidAudience"],
-                        claims: new List<Claim>(),
+                        claims: new List<Claim>()
+                        {
+                            new Claim("Username", user.UserName)
+                        },
                         expires: DateTime.Now.AddMinutes(10),
                         signingCredentials: signinCredentials
-                    );
+                    ); ;
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
                 return Ok(new JWTTokenResponse { Token = tokenString });
             }

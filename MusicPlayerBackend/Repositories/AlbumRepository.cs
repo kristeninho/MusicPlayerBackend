@@ -5,6 +5,7 @@ using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories.Interfaces;
 using System.Globalization;
+using System.Text;
 
 namespace MusicPlayerBackend.Repositories
 {
@@ -28,7 +29,7 @@ namespace MusicPlayerBackend.Repositories
 			{
 				Id = albumDTO.Id,
 				Name = albumDTO.Name,
-				CoverImage = albumDTO.CoverImage,
+				CoverImage = Encoding.ASCII.GetBytes(albumDTO.CoverImage),
 				Duration = albumDTO.Duration,
 				UploadDate = albumDTO.UploadDate,
 				User = user
@@ -37,7 +38,7 @@ namespace MusicPlayerBackend.Repositories
 			newAlbum.Songs = albumDTO.Songs.Select(s => new Song
 			{
 				Id = s.Id,
-				SongFile = s.SongFile,
+				SongFile = Encoding.ASCII.GetBytes(s.SongFile),
 				Duration = s.Duration,
 				Name = s.Name,
 				UploadDate = s.UploadDate,
@@ -81,7 +82,7 @@ namespace MusicPlayerBackend.Repositories
 
 			album.UploadDate=albumDTO.UploadDate;
 			album.Duration = album.Duration;
-			album.CoverImage = albumDTO.CoverImage;
+			album.CoverImage = Encoding.ASCII.GetBytes(albumDTO.CoverImage);
 			album.Name = albumDTO.Name;
 			await dbContext.SaveChangesAsync();
 

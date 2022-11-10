@@ -4,6 +4,7 @@ using MusicPlayerBackend.Helpers;
 using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories.Interfaces;
+using System.Text;
 
 namespace MusicPlayerBackend.Repositories
 {
@@ -32,7 +33,7 @@ namespace MusicPlayerBackend.Repositories
                 Name = songDTO.Name,
                 Album = album,
                 Duration = songDTO.Duration,
-                SongFile = songDTO.SongFile,
+                SongFile = Encoding.ASCII.GetBytes(songDTO.SongFile),
                 UploadDate = songDTO.UploadDate
             };
 
@@ -63,7 +64,7 @@ namespace MusicPlayerBackend.Repositories
 
             song.UploadDate = songDTO.UploadDate;
             song.Duration = songDTO.Duration;
-            song.SongFile = songDTO.SongFile;
+            song.SongFile = Encoding.ASCII.GetBytes(songDTO.SongFile);
             song.Name = songDTO.Name;
 
             var newAlbum = await dbContext.Albums.FirstOrDefaultAsync(x => x.Id == songDTO.AlbumId);

@@ -4,6 +4,7 @@ using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories.Interfaces;
 using MusicPlayerBackend.Helpers;
+using System.Text;
 
 namespace MusicPlayerBackend.Repositories
 {
@@ -86,7 +87,7 @@ namespace MusicPlayerBackend.Repositories
 					Duration = album.Duration,
 					UploadDate = album.UploadDate,
 					UserName = user.Name,
-					CoverImage = album.CoverImage,
+					CoverImage = Encoding.ASCII.GetString(album.CoverImage),
 					Songs = new List<SongDTO>()
 				};
 				
@@ -97,7 +98,7 @@ namespace MusicPlayerBackend.Repositories
 						Id = song.Id,
 						Name = song.Name,
 						Duration = song.Duration,
-						SongFile = song.SongFile,
+						SongFile = Encoding.ASCII.GetString(song.SongFile),
 						UploadDate = song.UploadDate,
 						AlbumId = album.Id
 					};

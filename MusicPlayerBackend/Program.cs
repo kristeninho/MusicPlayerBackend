@@ -16,6 +16,7 @@ builder.Services.AddPooledDbContextFactory<AppDbContext>(options
 builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IAlbumRepository, AlbumRepository>();
+builder.Services.AddSingleton<ISongRepository, SongRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

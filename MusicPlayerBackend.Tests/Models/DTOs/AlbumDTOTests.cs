@@ -13,7 +13,7 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
                 Name = "Album name",
                 Duration = "30:00",
                 UploadDate = DateTime.Now,
-                CoverImage = new byte[100],
+                CoverImage = "ASDASDSAFDSADASDS",
                 Songs = new List<SongDTO>(),
                 UserName = "User Name"
             };
@@ -40,7 +40,7 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
         [Fact]
         public void AlbumDTOHasCoverImagePropertyTest() => Assert.NotNull(_albumDTO.CoverImage);
         [Fact]
-        public void AlbumDTOCoverImagePropertyIsTypeByteArrayTest() => Assert.IsType<byte[]>(_albumDTO.CoverImage);
+        public void AlbumDTOCoverImagePropertyIsTypeStringTest() => Assert.IsType<string>(_albumDTO.CoverImage);
         [Fact]
         public void AlbumDTOHasSongsPropertyTest() => Assert.NotNull(_albumDTO.Songs);
         [Fact]
