@@ -32,7 +32,7 @@ namespace MusicPlayerBackend.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         // TODO: think about adding authorize here as well, since it will block against big attacks and ->
         // -> use this request from my own admin account (so only admin can create users)
-        [HttpPost] 
+        [HttpPost("AddUser")]
         public async Task<ActionResult<UserCredentialsDTO>> AddUser(UserCredentialsDTO user)
         {
             if(!_validator.AreUserCredentialsValid(user)) return BadRequest("Invalid user credentials");
@@ -45,7 +45,7 @@ namespace MusicPlayerBackend.Controllers
 
         // GET: api/user
         // Will return the username with all of its albums and songs
-		[HttpGet, Authorize]
+		[HttpGet("GetUserData"), Authorize]
         public async Task<ActionResult<UserDataDTO>> GetUserData(string userName)
 		{
             if (!_validator.IsUserNameValid(userName)) return BadRequest("Invalid username");
@@ -59,7 +59,7 @@ namespace MusicPlayerBackend.Controllers
 
 		// PUT: api/user
 		// Will update user credentials and return new ones
-		[HttpPut, Authorize]
+		[HttpPut("UpdateUserPassword"), Authorize]
         public async Task<ActionResult<UserCredentialsDTO>> UpdateUserCredentials(UserCredentialsDTO user)
 		{
             if (!_validator.AreUserCredentialsValid(user)) return BadRequest("Invalid user credentials");
@@ -74,7 +74,7 @@ namespace MusicPlayerBackend.Controllers
 		// DELETE: api/user
 		// Will delete user from the database
         // TODO: check how to use only username here
-		[HttpDelete, Authorize]
+		[HttpDelete("DeleteUser"), Authorize]
         public async Task<ActionResult<string>> DeleteUser(UserCredentialsDTO user)
 		{
             if (!_validator.IsUserNameValid(user.UserName)) return BadRequest("Invalid username");

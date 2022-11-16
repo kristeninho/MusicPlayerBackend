@@ -28,7 +28,7 @@ namespace MusicPlayerBackend.Controllers
 
         // POST: api/album
         // Will add album to user
-        [HttpPost]
+        [HttpPost("AddAlbum")]
         public async Task<ActionResult<AlbumDTO>> AddAlbum(AlbumDTO album)
         {
             if (!_validator.IsAlbumDTOValid(album)) return BadRequest("Invalid album");
@@ -42,7 +42,7 @@ namespace MusicPlayerBackend.Controllers
 
         // PUT: api/album
         // Will update the album
-        [HttpPut]
+        [HttpPut("UpdateAlbum")]
         public async Task<ActionResult<AlbumDTO>> UpdateAlbum(AlbumDTO album)
 		{
             if (!_validator.IsAlbumDTOValid(album)) return BadRequest("Invalid album");
@@ -56,7 +56,7 @@ namespace MusicPlayerBackend.Controllers
 
         // DELETE: api/album
         // Will delete the album
-        [HttpDelete]
+        [HttpDelete("DeleteAlbum")]
         public async Task<ActionResult<string>> DeleteAlbum(AlbumDTO album)
 		{
             if (!_validator.IsAlbumDTOValid(album)) return BadRequest("Invalid album");
