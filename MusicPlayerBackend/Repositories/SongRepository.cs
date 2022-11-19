@@ -29,7 +29,7 @@ namespace MusicPlayerBackend.Repositories
 
             var song = new Song()
             {
-                Id = songDTO.Id,
+                Id = songDTO.Id, //might be removed so id would be generated in the BE
                 Name = songDTO.Name,
                 Album = album,
                 Duration = songDTO.Duration,
@@ -79,7 +79,7 @@ namespace MusicPlayerBackend.Repositories
         {
             var dbContext = _context.CreateDbContext();
 
-            return await dbContext.Albums.AnyAsync(x => x.Id == songId);
+            return await dbContext.Songs.AnyAsync(x => x.Id == songId);
         }
     }
 }
