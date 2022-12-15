@@ -149,7 +149,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 			var album = new Album
 			{
 				Id = albumDTO.Id,
-				CoverImage = Encoding.ASCII.GetBytes(albumDTO.CoverImage),
+				CoverImageUrl = albumDTO.CoverImageUrl,
 				Duration = albumDTO.Duration,
 				Name = albumDTO.Name,
 				UploadDate = albumDTO.UploadDate,

@@ -33,7 +33,7 @@ namespace MusicPlayerBackend.Repositories
                 Name = songDTO.Name,
                 Album = album,
                 Duration = songDTO.Duration,
-                SongFile = Encoding.ASCII.GetBytes(songDTO.SongFile),
+                SongFileUrl = songDTO.SongFileUrl,
                 UploadDate = songDTO.UploadDate
             };
 
@@ -64,7 +64,7 @@ namespace MusicPlayerBackend.Repositories
 
             song.UploadDate = songDTO.UploadDate;
             song.Duration = songDTO.Duration;
-            song.SongFile = Encoding.ASCII.GetBytes(songDTO.SongFile);
+            song.SongFileUrl = songDTO.SongFileUrl;
             song.Name = songDTO.Name;
 
             var newAlbum = await dbContext.Albums.FirstOrDefaultAsync(x => x.Id == songDTO.AlbumId);

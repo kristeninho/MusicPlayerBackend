@@ -322,21 +322,21 @@ namespace MusicPlayerBackend.Tests.Repositories
 				{
 					Name = "Song1",
 					Duration = "3:00",
-					SongFile = new byte[100],
+					SongFileUrl = "SSSSSSSSSSS",
 					UploadDate = DateTime.Now,
 				},
 				new Song
 				{
 					Name = "Song2",
 					Duration = "2:00",
-					SongFile = new byte[100],
+					SongFileUrl = "SSSSSSS",
 					UploadDate = DateTime.Now
 				},
 				new Song
 				{
 					Name = "Song2",
 					Duration = "4:00",
-					SongFile = new byte[100],
+					SongFileUrl = "SSSSSSSS",
 					UploadDate = DateTime.Now
 				}
 			};
@@ -344,7 +344,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 			var album = new Album
 			{
 				Name = "Album1",
-				CoverImage = new byte[100],
+				CoverImageUrl = "AAAAA",
 				Duration = "9:00",
 				Songs = songList,
 				UploadDate = DateTime.Now
@@ -372,7 +372,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 					Duration = album.Duration,
 					UploadDate = album.UploadDate,
 					UserName = user.Name,
-					CoverImage = Encoding.ASCII.GetString(album.CoverImage),
+					CoverImageUrl = album.CoverImageUrl,
 					Songs = new List<SongDTO>()
 				};
 
@@ -383,7 +383,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 						Id = song.Id,
 						Name = song.Name,
 						Duration = song.Duration,
-						SongFile = Encoding.ASCII.GetString(song.SongFile),
+						SongFileUrl = song.SongFileUrl,
 						UploadDate = song.UploadDate,
 						AlbumId = album.Id
 					};

@@ -87,7 +87,7 @@ namespace MusicPlayerBackend.Repositories
 					Duration = album.Duration,
 					UploadDate = album.UploadDate,
 					UserName = user.Name,
-					CoverImage = Encoding.ASCII.GetString(album.CoverImage),
+					CoverImageUrl = album.CoverImageUrl,
 					Songs = new List<SongDTO>()
 				};
 				
@@ -98,7 +98,7 @@ namespace MusicPlayerBackend.Repositories
 						Id = song.Id,
 						Name = song.Name,
 						Duration = song.Duration,
-						SongFile = Encoding.ASCII.GetString(song.SongFile),
+						SongFileUrl = song.SongFileUrl,
 						UploadDate = song.UploadDate,
 						AlbumId = album.Id
 					};

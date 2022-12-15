@@ -6,8 +6,7 @@
         public string Name { get; set; }
         public DateTime UploadDate { get; set; }
         public string Duration { get; set; }
-        public byte[] SongFile { get; set; }
-
+        public string SongFileUrl { get; set; }
         public Album Album { get; set; }
     }
 }

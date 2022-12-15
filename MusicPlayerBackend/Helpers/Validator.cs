@@ -28,7 +28,7 @@ namespace MusicPlayerBackend.Helpers
         public bool IsAlbumDTOValid(AlbumDTO entity)
         {
             if (entity == null
-                || entity.CoverImage == null
+                || entity.CoverImageUrl == null || entity.CoverImageUrl == ""
                 || entity.Id.ToString() == "00000000-0000-0000-0000-000000000000"
                 || !IsUserNameValid(entity.UserName)
                 || entity.Duration.Length < 4
@@ -54,7 +54,7 @@ namespace MusicPlayerBackend.Helpers
                     || song.AlbumId != albumId
                     || song.Duration.Length < 4
                     || song.Name.Length < 1
-                    || song.SongFile == null
+                    || song.SongFileUrl == null || song.SongFileUrl == ""
                     || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false;
             return true;
         }
@@ -65,7 +65,7 @@ namespace MusicPlayerBackend.Helpers
                     || song.AlbumId.ToString() == "00000000-0000-0000-0000-000000000000"
                     || song.Duration.Length < 4
                     || song.Name.Length < 1
-                    || song.SongFile == null
+                    || song.SongFileUrl == null || song.SongFileUrl == ""
                     || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false;
             return true;
         }

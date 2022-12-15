@@ -24,7 +24,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 					Name = "DEMOS",
 					UserName = "Username1",
 					Duration = "20:00",
-					CoverImage = "sadsadsadsadsadsa",
+					CoverImageUrl = "sadsadsadsadsadsa",
 					UploadDate = DateTime.Now,
 					Songs = new List<SongDTO>()
 				}
@@ -36,7 +36,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album1",
 						UserName = "Username1",
 						Duration = "30:00",
-						CoverImage = "dsadsadsadsadsadsadas",
+						CoverImageUrl = "dsadsadsadsadsadsadas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -46,7 +46,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "sadsadsadsad",
+								SongFileUrl = "sadsadsadsad",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -55,7 +55,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -64,7 +64,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -77,7 +77,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album2",
 						UserName = "Username2",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -87,7 +87,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d95")
 							},
 							new SongDTO
@@ -96,7 +96,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d95")
 							},
 							new SongDTO
@@ -105,7 +105,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d95")
 							},
 						}
@@ -118,7 +118,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album3",
 						UserName = "Username3",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -128,7 +128,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d94")
 							},
 							new SongDTO
@@ -137,7 +137,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d94")
 							},
 							new SongDTO
@@ -146,7 +146,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d94")
 							},
 						}
@@ -159,7 +159,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album3",
 						UserName = "Username4",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -169,7 +169,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
 							},
 							new SongDTO
@@ -178,7 +178,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
 							},
 							new SongDTO
@@ -187,7 +187,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
 							},
 						}
@@ -200,7 +200,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album4",
 						UserName = "Username4",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -210,7 +210,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
 							},
 							new SongDTO
@@ -219,7 +219,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
 							},
 							new SongDTO
@@ -228,7 +228,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
 							}
 						}
@@ -241,7 +241,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album4",
 						UserName = "Username6",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -251,7 +251,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d92")
 							},
 							new SongDTO
@@ -260,7 +260,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d92")
 							},
 							new SongDTO
@@ -269,7 +269,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d92")
 							}
 						}
@@ -282,7 +282,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album4",
 						UserName = "Username7",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -292,7 +292,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d12")
 							},
 							new SongDTO
@@ -301,7 +301,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d12")
 							},
 							new SongDTO
@@ -310,7 +310,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d12")
 							}
 						}
@@ -333,7 +333,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 							Duration = "10:00",
 							Id = Guid.NewGuid(),
 							UploadDate = DateTime.Now,
-							SongFile = "ssadasdsadasdas",
+							SongFileUrl = "ssadasdsadasdas",
 							AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 						},
 						new SongDTO
@@ -342,7 +342,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 							Duration = "12:00",
 							Id = Guid.NewGuid(),
 							UploadDate = DateTime.Now,
-							SongFile = "ssadasdsadasdas",
+							SongFileUrl = "ssadasdsadasdas",
 							AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 						},
 						new SongDTO
@@ -351,7 +351,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 							Duration = "08:00",
 							Id = Guid.NewGuid(),
 							UploadDate = DateTime.Now,
-							SongFile ="ssadasdsadasdas",
+							SongFileUrl ="ssadasdsadasdas",
 							AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 						},
 					}
@@ -364,7 +364,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album1",
 						UserName = "Username1",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -374,7 +374,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("00000000-0000-0000-0000-000000000000")
 							},
 							new SongDTO
@@ -383,7 +383,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("00000000-0000-0000-0000-000000000000")
 							},
 							new SongDTO
@@ -392,7 +392,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("00000000-0000-0000-0000-000000000000")
 							},
 						}
@@ -405,7 +405,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album1",
 						UserName = null,
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -415,7 +415,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -424,7 +424,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -433,7 +433,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -446,7 +446,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album1",
 						UserName = "Us",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -456,7 +456,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -465,7 +465,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -474,7 +474,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -487,7 +487,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album1",
 						UserName = "Username1Username1",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -497,7 +497,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -506,7 +506,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -515,7 +515,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -528,7 +528,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album1",
 						UserName = "Username1!",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -538,7 +538,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -547,7 +547,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -556,7 +556,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -569,7 +569,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album1",
 						UserName = "Username1",
 						Duration = "30",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -579,7 +579,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -588,7 +588,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -597,7 +597,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -610,7 +610,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Name = "Album1",
 						UserName = "Username1",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 					}
@@ -621,7 +621,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96"),
 						UserName = "Username1",
 						Duration = "30:00",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -631,7 +631,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -640,7 +640,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -649,7 +649,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -662,7 +662,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						UserName = "Username1",
 						Duration = "30:00",
 						Name = "",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -672,7 +672,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -681,7 +681,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -690,7 +690,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -703,7 +703,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						UserName = "Username1",
 						Duration = "30:00",
 						Name = "Album1",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now.AddDays(1),
 						Songs = new List<SongDTO>()
 						{
@@ -713,7 +713,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -722,7 +722,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -731,7 +731,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -744,7 +744,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						UserName = "Username1",
 						Duration = "30:00",
 						Name = "Album1",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -754,7 +754,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.Parse("00000000-0000-0000-0000-000000000000"),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -763,7 +763,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.Parse("00000000-0000-0000-0000-000000000000"),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -772,7 +772,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.Parse("00000000-0000-0000-0000-000000000000"),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -785,7 +785,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						UserName = "Username1",
 						Duration = "30:00",
 						Name = "Album1",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -795,7 +795,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d00")
 							},
 							new SongDTO
@@ -804,7 +804,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d00")
 							},
 							new SongDTO
@@ -813,7 +813,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d00")
 							},
 						}
@@ -826,7 +826,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						UserName = "Username1",
 						Duration = "30:00",
 						Name = "Album1",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -836,7 +836,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -845,7 +845,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -854,7 +854,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now,
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
@@ -867,7 +867,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						UserName = "Username1",
 						Duration = "30:00",
 						Name = "Album1",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -905,7 +905,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 						UserName = "Username1",
 						Duration = "30:00",
 						Name = "Album1",
-						CoverImage = "ssadasdsadasdas",
+						CoverImageUrl = "ssadasdsadasdas",
 						UploadDate = DateTime.Now,
 						Songs = new List<SongDTO>()
 						{
@@ -915,7 +915,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "10:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now.AddDays(1),
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -924,7 +924,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "12:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now.AddDays(1),
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 							new SongDTO
@@ -933,7 +933,7 @@ namespace MusicPlayerBackend.Tests.Helpers
 								Duration = "08:00",
 								Id = Guid.NewGuid(),
 								UploadDate = DateTime.Now.AddDays(1),
-								SongFile = "ssadasdsadasdas",
+								SongFileUrl = "ssadasdsadasdas",
 								AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
 							},
 						}
