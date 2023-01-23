@@ -11,11 +11,9 @@ namespace MusicPlayerBackend.Repositories
     public class SongRepository : ISongRepository
     {
         private readonly IDbContextFactory<AppDbContext> _context;
-        private readonly Validator _validator;
         public SongRepository(IDbContextFactory<AppDbContext> context)
         {
             _context = context;
-            _validator = new Validator();
         }
 
         public async Task<SongDTO?> AddAsync(SongDTO songDTO)
@@ -33,7 +31,7 @@ namespace MusicPlayerBackend.Repositories
                 Name = songDTO.Name,
                 Album = album,
                 Duration = songDTO.Duration,
-                SongFileUrl = songDTO.SongFileUrl,
+                SongFileUrl = UploadSong(songDTO.SongFile),
                 UploadDate = songDTO.UploadDate
             };
 
@@ -49,6 +47,7 @@ namespace MusicPlayerBackend.Repositories
             var song = await dbContext.Songs.FirstOrDefaultAsync(x => x.Id == new Guid(songId));
             if (song == null) return "Song does not exist";
 
+            RemoveSongFile(song);
             dbContext.Songs.Remove(song);
             await dbContext.SaveChangesAsync();
 
@@ -62,9 +61,8 @@ namespace MusicPlayerBackend.Repositories
             var song = await dbContext.Songs.FirstOrDefaultAsync(x => x.Id == songDTO.Id);
             if (song == null) return null;
 
+            // need to think about what exactly should be updatable
             song.UploadDate = songDTO.UploadDate;
-            song.Duration = songDTO.Duration;
-            song.SongFileUrl = songDTO.SongFileUrl;
             song.Name = songDTO.Name;
 
             var newAlbum = await dbContext.Albums.FirstOrDefaultAsync(x => x.Id == songDTO.AlbumId);
@@ -81,5 +79,17 @@ namespace MusicPlayerBackend.Repositories
 
             return await dbContext.Songs.AnyAsync(x => x.Id == songId);
         }
+
+        private string UploadSong(string? songFile) //should be moved to seperate cloud helper class
+        {
+            //upload the song to cloud here and get its url
+            return "songURL";
+        }
+
+        private void RemoveSongFile(Song song) //should be moved to seperate cloud helper class
+        {
+            // remove song.SongFileUrl file from cloud
+        }
+
     }
 }

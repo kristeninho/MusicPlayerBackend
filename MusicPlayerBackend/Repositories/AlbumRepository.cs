@@ -12,11 +12,9 @@ namespace MusicPlayerBackend.Repositories
 	public class AlbumRepository : IAlbumRepository
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
-		private readonly Validator _validator;
 		public AlbumRepository(IDbContextFactory<AppDbContext> context)
 		{
 			_context = context;
-			_validator = new Validator();
 		}
 		public async Task<AlbumDTO?> AddAsync(AlbumDTO albumDTO)
 		{
@@ -25,11 +23,16 @@ namespace MusicPlayerBackend.Repositories
 			var user = await GetUserByUsername(albumDTO.UserName, dbContext);
 			if (user == null) return null;
 
+			var coverUrl = "";
+
+			if (albumDTO.CoverImage == null) coverUrl = "defaultCoverImageURL"; // some default image url;
+			else coverUrl = UploadCoverImage(albumDTO.CoverImage);
+
 			var newAlbum = new Album
 			{
 				Id = albumDTO.Id,
 				Name = albumDTO.Name,
-				CoverImageUrl = albumDTO.CoverImageUrl,
+				CoverImageUrl = coverUrl,
 				Duration = albumDTO.Duration,
 				UploadDate = albumDTO.UploadDate,
 				User = user
@@ -38,7 +41,7 @@ namespace MusicPlayerBackend.Repositories
 			newAlbum.Songs = albumDTO.Songs.Select(s => new Song
 			{
 				Id = s.Id,
-				SongFileUrl = s.SongFileUrl,
+				SongFileUrl = UploadSong(s.SongFile),
 				Duration = s.Duration,
 				Name = s.Name,
 				UploadDate = s.UploadDate,
@@ -51,36 +54,28 @@ namespace MusicPlayerBackend.Repositories
 			return albumDTO;
 		}
 
-		private async Task<User> GetUserByUsername(string userName, AppDbContext dbContext)
-		{
-			var user = await dbContext.Users.Include("Albums").FirstOrDefaultAsync(x => x.Name == userName);
-			return user;
-		}
-
 		public async Task<string> DeleteAsync(string albumId)
 		{
-			// TODO: Need to add user login logic first and ask for current user here.
-			// If current logged in user is same as album's user, then let it delete the album
-			// Can probably read the username from JWT token, but the CURRENTUSER check will be done in Controller
-
 			using var dbContext = _context.CreateDbContext();
 			var album = await dbContext.Albums.Include(x => x.Songs).FirstOrDefaultAsync(a => a.Id == new Guid(albumId));
-			if(album == null) return "Album does not exist";
+			if (album == null) return "Album does not exist";
 
+			RemoveAlbumFiles(album);
 			dbContext.Albums.Remove(album);
 			await dbContext.SaveChangesAsync();
 
 			return "Album deleted";
 		}
 
-		public async Task<AlbumDTO?> UpdateAsync(AlbumDTO albumDTO)
+        public async Task<AlbumDTO?> UpdateAsync(AlbumDTO albumDTO)
 		{
 			using var dbContext = _context.CreateDbContext();
 
 			var album = await dbContext.Albums.Include(x => x.Songs).FirstOrDefaultAsync(a => a.Id==albumDTO.Id);
 			if (album == null) return null;
 
-			album.UploadDate=albumDTO.UploadDate;
+            // need to think about what exactly should be updatable
+            album.UploadDate=albumDTO.UploadDate;
 			//album.Duration = album.Duration;
 			//album.CoverImageUrl = album.CoverImageUrl;
 			album.Name = albumDTO.Name;
@@ -95,5 +90,37 @@ namespace MusicPlayerBackend.Repositories
 
 			return await dbContext.Albums.AnyAsync(x => x.Id == albumId);
 		}
-	}
+
+        private string UploadSong(string? songFile) //should be moved to seperate cloud helper class
+        {
+            //upload the song to cloud here and get its url
+            return "songURL";
+        }
+
+        private string UploadCoverImage(string coverImage) //should be moved to seperate cloud helper class
+        {
+            //upload the cover to cloud here and get its url
+            return "coverImageURL"; //return the url
+        }
+
+        private void RemoveAlbumFiles(Album album) //should be moved to seperate cloud helper class
+        {
+            // remove album.CoverImageUrl file from cloud
+            foreach (var song in album.Songs)
+            {
+				RemoveSongFile(song);
+            }
+        }
+
+        private void RemoveSongFile(Song song) //should be moved to seperate cloud helper class
+        {
+            // remove song.SongFileUrl file from cloud
+        }
+
+        private async Task<User> GetUserByUsername(string userName, AppDbContext dbContext)
+        {
+            var user = await dbContext.Users.Include("Albums").FirstOrDefaultAsync(x => x.Name == userName);
+            return user;
+        }
+    }
 }

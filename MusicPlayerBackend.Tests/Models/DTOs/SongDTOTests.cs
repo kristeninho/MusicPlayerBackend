@@ -13,6 +13,7 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
                 Name = "Song Name",
                 UploadDate = DateTime.Now,
                 Duration = "3:00",
+                SongFile = "SADSADA",
                 SongFileUrl = "SADSADSADSADSAD",
                 AlbumId = new Guid()
             };
@@ -37,9 +38,13 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
         [Fact]
         public void SongDTODurationPropertyIsTypeStringTest() => Assert.IsType<string>(_songDTO.Duration);
         [Fact]
-        public void SongDTOHasSongFilePropertyTest() => Assert.NotNull(_songDTO.SongFileUrl);
+        public void SongDTOHasSongFileUrlPropertyTest() => Assert.NotNull(_songDTO.SongFileUrl);
         [Fact]
-        public void SongDTOSongFilePropertyIsTypeStringTest() => Assert.IsType<string>(_songDTO.SongFileUrl);
+        public void SongDTOSongFileUrlPropertyIsTypeStringTest() => Assert.IsType<string>(_songDTO.SongFileUrl);
+        [Fact]
+        public void SongDTOHasSongFilePropertyTest() => Assert.NotNull(_songDTO.SongFile);
+        [Fact]
+        public void SongDTOSongFilePropertyIsTypeStringTest() => Assert.IsType<string>(_songDTO.SongFile);
         [Fact]
         public void SongDTOHasAlbumIdPropertyTest() => Assert.NotNull(_songDTO.AlbumId);
         [Fact]
