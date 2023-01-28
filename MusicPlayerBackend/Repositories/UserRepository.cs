@@ -75,43 +75,51 @@ namespace MusicPlayerBackend.Repositories
 		{
 			List<AlbumDTO> albumDTOs = new List<AlbumDTO>();
 			List<SongDTO> songDTOs = new List<SongDTO>();
-			// this can be done using TPL
-			foreach (var album in user.Albums)
+			// this can maybe be done using TPL
+			try 
 			{
-				var albumDTO = new AlbumDTO
-				{
-					Id = album.Id,
-					Name = album.Name,
-					Duration = album.Duration,
-					UploadDate = album.UploadDate,
-					UserName = user.Name,
-					CoverImage = await _azureCloudStorage.DownloadFileAndReturnAsString(album.CoverImageNameInCloud, "images"),
-					Songs = new List<SongDTO>()
-				};
-				
-				foreach(var song in album.Songs)
-				{
-					var songDTO = new SongDTO
-					{
-						Id = song.Id,
-						Name = song.Name,
-						Duration = song.Duration,
-						SongFile = await _azureCloudStorage.DownloadFileAndReturnAsString(song.SongNameInCloud, "songs"),
-						UploadDate = song.UploadDate,
-						AlbumId = album.Id
-					};
+                foreach (var album in user.Albums)
+                {
+                    var albumDTO = new AlbumDTO
+                    {
+                        Id = album.Id,
+                        Name = album.Name,
+                        Duration = album.Duration,
+                        UploadDate = album.UploadDate,
+                        UserName = user.Name,
+                        CoverImage = await _azureCloudStorage.DownloadFileAndReturnAsString(album.CoverImageNameInCloud, "images"),
+                        Songs = new List<SongDTO>()
+                    };
 
-					songDTOs.Add(songDTO);
-					albumDTO.Songs.Add(songDTO);
-				}
-				albumDTOs.Add(albumDTO);
-			}
-			return new UserDataDTO
-			{
-				Name = user.Name,
-				Albums = albumDTOs,
-				Songs = songDTOs
-			};
+                    foreach (var song in album.Songs)
+                    {
+                        var songDTO = new SongDTO
+                        {
+                            Id = song.Id,
+                            Name = song.Name,
+                            Duration = song.Duration,
+                            SongFile = await _azureCloudStorage.DownloadFileAndReturnAsString(song.SongNameInCloud, "songs"),
+                            UploadDate = song.UploadDate,
+                            AlbumId = album.Id,
+                            UserName = user.Name,
+                        };
+
+                        songDTOs.Add(songDTO);
+                        albumDTO.Songs.Add(songDTO);
+                    }
+                    albumDTOs.Add(albumDTO);
+                }
+                return new UserDataDTO
+                {
+                    Name = user.Name,
+                    Albums = albumDTOs,
+                    Songs = songDTOs
+                };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 		}
 
 		public async Task<bool> CheckIfUserExistsByUsernameAndPassword(UserCredentialsDTO user)

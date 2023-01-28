@@ -11,6 +11,7 @@ namespace MusicPlayerBackend.Repositories
     public class SongRepository : ISongRepository
     {
         private readonly IDbContextFactory<AppDbContext> _context;
+        private readonly IAzureCloudStorageRepository _azureCloudStorage = new AzureCloudStorageRepository();
         public SongRepository(IDbContextFactory<AppDbContext> context)
         {
             _context = context;
@@ -25,20 +26,27 @@ namespace MusicPlayerBackend.Repositories
             if (album == null) album = await dbContext.Albums.SingleOrDefaultAsync(x => x.Name.ToUpper() == "DEMOS"); //the general album
             if (album == null) return null; //if for some reason user does not have general album named DEMOS
 
-            var song = new Song()
+            try
             {
-                Id = songDTO.Id, //might be removed so id would be generated in the BE
-                Name = songDTO.Name,
-                Album = album,
-                Duration = songDTO.Duration,
-                SongNameInCloud = UploadSong(songDTO.SongFile),
-                UploadDate = songDTO.UploadDate
-            };
+                var song = new Song()
+                {
+                    Id = songDTO.Id, //might be removed so id would be generated in the BE
+                    Name = songDTO.Name,
+                    Album = album,
+                    Duration = songDTO.Duration,
+                    SongNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(songDTO.UserName, songDTO.Name, "mp3", songDTO.SongFile, "songs"),
+                    UploadDate = songDTO.UploadDate
+                };
 
-            await dbContext.AddAsync(song);
-            await dbContext.SaveChangesAsync();
+                await dbContext.AddAsync(song);
+                await dbContext.SaveChangesAsync();
 
-            return songDTO;
+                return songDTO;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public async Task<string> DeleteAsync(string songId)
@@ -47,11 +55,18 @@ namespace MusicPlayerBackend.Repositories
             var song = await dbContext.Songs.FirstOrDefaultAsync(x => x.Id == new Guid(songId));
             if (song == null) return "Song does not exist";
 
-            RemoveSongFile(song);
-            dbContext.Songs.Remove(song);
-            await dbContext.SaveChangesAsync();
+            try
+            {
+                await _azureCloudStorage.DeleteAsync(song.SongNameInCloud, "songs");
+                dbContext.Songs.Remove(song);
+                await dbContext.SaveChangesAsync();
 
-            return "Song deleted";
+                return "Song deleted";
+            }
+            catch (Exception ex)
+            {
+                return $"EXCEPTION: {ex}";
+            }
         }
 
         public async Task<SongDTO?> UpdateAsync(SongDTO songDTO)
@@ -79,17 +94,5 @@ namespace MusicPlayerBackend.Repositories
 
             return await dbContext.Songs.AnyAsync(x => x.Id == songId);
         }
-
-        private string UploadSong(string? songFile) //should be moved to seperate cloud helper class
-        {
-            //upload the song to cloud here and get its url
-            return "songURL";
-        }
-
-        private void RemoveSongFile(Song song) //should be moved to seperate cloud helper class
-        {
-            // remove song.SongFileUrl file from cloud
-        }
-
     }
 }

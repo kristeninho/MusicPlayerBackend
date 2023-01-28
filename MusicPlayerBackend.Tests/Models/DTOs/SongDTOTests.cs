@@ -15,7 +15,8 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
                 Duration = "3:00",
                 SongFile = "SADSADA",
                 SongNameInCloud = "SADSADSADSADSAD",
-                AlbumId = new Guid()
+                AlbumId = new Guid(),
+                UserName = "Username1"
             };
         }
 
@@ -49,6 +50,10 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
         public void SongDTOHasAlbumIdPropertyTest() => Assert.NotNull(_songDTO.AlbumId);
         [Fact]
         public void SongDTOAlbumPropertyIsTypeGuidDTOTest() => Assert.IsType<Guid>(_songDTO.AlbumId);
+        [Fact]
+        public void SongDTOHasUserNamePropertyTest() => Assert.NotNull(_songDTO.UserName);
+        [Fact]
+        public void SongDTOUserNamePropertyIsTypeStringTest() => Assert.IsType<string>(_songDTO.UserName);
         [Fact]
         public void SongDTOAlbumCanBeNullTest()
         {

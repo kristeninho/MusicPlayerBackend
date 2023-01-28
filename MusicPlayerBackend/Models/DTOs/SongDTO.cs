@@ -9,5 +9,6 @@
         public string? SongNameInCloud { get; set; }
         public string? SongFile { get; set; }
         public Guid? AlbumId { get; set; }
+        public string UserName { get; set; }
     }
 }

@@ -52,39 +52,48 @@ namespace MusicPlayerBackend.Repositories
 			};
 
 			var songList = new List<Song>();
-			foreach (var song in albumDTO.Songs)
+
+			try 
 			{
-				songList.Add(new Song
-				{
-					Id = song.Id,
-					Name = song.Name,
-					Album = newAlbum,
-					Duration = song.Duration,
-					UploadDate = song.UploadDate,
-					SongNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(albumDTO.UserName, song.Name, "mp3", song.SongFile, "songs")
-				});
+                foreach (var song in albumDTO.Songs)
+                {
+                    songList.Add(new Song
+                    {
+                        Id = song.Id,
+                        Name = song.Name,
+                        Album = newAlbum,
+                        Duration = song.Duration,
+                        UploadDate = song.UploadDate,
+                        SongNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(albumDTO.UserName, song.Name, "mp3", song.SongFile, "songs")
+                    });
+                }
+                newAlbum.Songs = songList;
+
+                // maybe need to use concurrentlist here
+                // maybe need ", new ParallelOptions { MaxDegreeOfParallelism = X}"
+                //Parallel.ForEach(albumDTO.Songs, async song =>
+                //{
+                //	newAlbum.Songs.Add(new Song
+                //	{
+                //		Id = song.Id,
+                //		Name = song.Name,
+                //		Album = newAlbum,
+                //		Duration = song.Duration,
+                //		UploadDate = song.UploadDate,
+                //		SongFileUrl = await UploadFileToCloud(albumDTO.UserName, song.Name, "mp3", song.SongFile, "songs")
+                //	});
+                //});
+
+                await dbContext.AddAsync(newAlbum);
+                await dbContext.SaveChangesAsync();
+
+                return albumDTO;
+            } 
+			catch (Exception ex)
+			{
+                return null;
 			}
-			newAlbum.Songs = songList;
-
-            // maybe need to use concurrentlist here
-            // maybe need ", new ParallelOptions { MaxDegreeOfParallelism = X}"
-            //Parallel.ForEach(albumDTO.Songs, async song =>
-            //{
-            //	newAlbum.Songs.Add(new Song
-            //	{
-            //		Id = song.Id,
-            //		Name = song.Name,
-            //		Album = newAlbum,
-            //		Duration = song.Duration,
-            //		UploadDate = song.UploadDate,
-            //		SongFileUrl = await UploadFileToCloud(albumDTO.UserName, song.Name, "mp3", song.SongFile, "songs")
-            //	});
-            //});
-
-            await dbContext.AddAsync(newAlbum);
-			await dbContext.SaveChangesAsync();
-
-			return albumDTO;
+			
 		}
 
 		public async Task<string> DeleteAsync(string albumId)

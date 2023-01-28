@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MusicPlayerBackend.Repositories.Interfaces;
+using Moq;
 
 namespace MusicPlayerBackend.Tests.Repositories
 {
@@ -16,13 +18,14 @@ namespace MusicPlayerBackend.Tests.Repositories
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
 		private readonly UserRepository _repository;
-
-		public UserRepositoryTests()
+        private readonly Mock<IAzureCloudStorageRepository> _azureCloudRepository;
+        public UserRepositoryTests()
 		{
 			_context = new TestDbContextFactory("UserInMemoryDb");
 			_repository = new UserRepository(_context);
-			//InitializeDatabase(_context);
-		}
+            _azureCloudRepository = new Mock<IAzureCloudStorageRepository>();
+            //InitializeDatabase(_context);
+        }
 
 		//private void InitializeDatabase(IDbContextFactory<AppDbContext> context)
 		//{
@@ -202,9 +205,11 @@ namespace MusicPlayerBackend.Tests.Repositories
 			using var dbContext = _context.CreateDbContext();
 			var user = await InitializeDatabaseAndReturnUser(dbContext, userName);
 			var userDTO = TransferUserDataToDTO(user);
+			_azureCloudRepository.Setup(x => x.DownloadFileAndReturnAsString(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync("AAAAA");
+            ///_azureCloudRepository.Setup(x => x.DownloadFileAndReturnAsString(It.IsAny<string>(), "songs")).ReturnsAsync("BBBBB");
 
-			//act
-			var getUserDataResult = await _repository.GetUserDataAsync(userName);
+            //act
+            var getUserDataResult = await _repository.GetUserDataAsync(userName);
 
 			var expectedJson = JsonSerializer.Serialize(userDTO);
 			var actualJson = JsonSerializer.Serialize(getUserDataResult);
@@ -322,21 +327,21 @@ namespace MusicPlayerBackend.Tests.Repositories
 				{
 					Name = "Song1",
 					Duration = "3:00",
-					SongNameInCloud = "SSSSSSSSSSS",
+					SongNameInCloud = "AAAAA",
 					UploadDate = DateTime.Now,
 				},
 				new Song
 				{
 					Name = "Song2",
 					Duration = "2:00",
-					SongNameInCloud = "SSSSSSS",
+					SongNameInCloud = "AAAAA",
 					UploadDate = DateTime.Now
 				},
 				new Song
 				{
 					Name = "Song2",
 					Duration = "4:00",
-					SongNameInCloud = "SSSSSSSS",
+					SongNameInCloud = "AAAAA",
 					UploadDate = DateTime.Now
 				}
 			};
@@ -385,7 +390,8 @@ namespace MusicPlayerBackend.Tests.Repositories
 						Duration = song.Duration,
 						SongNameInCloud = song.SongNameInCloud,
 						UploadDate = song.UploadDate,
-						AlbumId = album.Id
+						AlbumId = album.Id,
+						UserName = user.Name
 					};
 
 					songDTOs.Add(songDTO);

@@ -55,7 +55,8 @@ namespace MusicPlayerBackend.Helpers
                     || song.Duration.Length < 4
                     || song.Name.Length < 1
                     || (song.SongNameInCloud == null && song.SongFile == null) || song.SongNameInCloud == "" || song.SongFile == ""
-                    || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false;
+                    || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false
+                    || IsUserNameValid(song.UserName);
             return true;
         }
         public bool IsSongDTOValid(SongDTO song)
@@ -66,7 +67,8 @@ namespace MusicPlayerBackend.Helpers
                     || song.Duration.Length < 4
                     || song.Name.Length < 1
                     || (song.SongNameInCloud == null && song.SongFile == null) || song.SongNameInCloud == "" || song.SongFile == ""
-                    || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false;
+                    || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false
+                    || IsUserNameValid(song.UserName);
             return true;
         }
     }

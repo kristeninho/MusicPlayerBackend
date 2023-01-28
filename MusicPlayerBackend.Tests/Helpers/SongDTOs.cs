@@ -26,8 +26,10 @@ namespace MusicPlayerBackend.Tests.Helpers
 					Id = Guid.NewGuid(),
 					UploadDate = DateTime.Now,
 					SongNameInCloud = "ssadasdsadasdas",
-					AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d90")
-				}
+					SongFile = "GzeDWOV83idFMr+pZh8G+Q==",
+                    AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d90"),
+                    UserName = "Username1"
+                }
 			},
 			{
 				"validSongDTO2",
@@ -38,8 +40,10 @@ namespace MusicPlayerBackend.Tests.Helpers
 					Id = Guid.NewGuid(),
 					UploadDate = DateTime.Now,
 					SongNameInCloud = "ssadasdsadasdas",
-					AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96")
-				}
+                    SongFile = "GzeDWOV83idFMr+pZh8G+Q==",
+                    AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d96"),
+                    UserName = "Username1"
+                }
 			},
 			{
 				"validSongDTO3",
@@ -50,8 +54,10 @@ namespace MusicPlayerBackend.Tests.Helpers
 					Id = Guid.NewGuid(),
 					UploadDate = DateTime.Now,
 					SongNameInCloud = "ssadasdsadasdas",
-					AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d95")
-				}
+                    SongFile = "GzeDWOV83idFMr+pZh8G+Q==",
+                    AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d95"),
+                    UserName = "Username1"
+                }
 			},
 			{
 				"validSongDTO4",
@@ -62,8 +68,10 @@ namespace MusicPlayerBackend.Tests.Helpers
 					Id = Guid.NewGuid(),
 					UploadDate = DateTime.Now,
 					SongNameInCloud = "ssadasdsadasdas",
-					AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d95")
-				}
+                    SongFile = "GzeDWOV83idFMr+pZh8G+Q==",
+                    AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d95"),
+                    UserName = "Username1"
+                }
 			},
 			{
 			"validSongDTO5",
@@ -74,8 +82,10 @@ namespace MusicPlayerBackend.Tests.Helpers
 					Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d88"),
 					UploadDate = DateTime.Now,
 					SongNameInCloud = "ssadasdsadasdas",
-					AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
-				}
+                    SongFile = "GzeDWOV83idFMr+pZh8G+Q==",
+                    AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93"),
+                    UserName = "Username1"
+                }
 			},
 			{
 			"validSongDTO6",
@@ -86,8 +96,10 @@ namespace MusicPlayerBackend.Tests.Helpers
 					Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d88"),
 					UploadDate = DateTime.Now,
 					SongNameInCloud = "ssadasdsadasdas",
-					AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
-				}
+                    SongFile = "GzeDWOV83idFMr+pZh8G+Q==",
+                    AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93"),
+                    UserName = "Username1"
+                }
 			},
 			{
 			"validSongDTO7",
@@ -98,8 +110,10 @@ namespace MusicPlayerBackend.Tests.Helpers
 					Id = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d89"),
 					UploadDate = DateTime.Now,
 					SongNameInCloud = "ssadasdsadasdas",
-					AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93")
-				}
+                    SongFile = "GzeDWOV83idFMr+pZh8G+Q==",
+                    AlbumId = Guid.Parse("5f67fd16-360c-4504-80ab-f5bb47614d93"),
+                    UserName = "Username1"
+                }
 			}
 		};
 	}

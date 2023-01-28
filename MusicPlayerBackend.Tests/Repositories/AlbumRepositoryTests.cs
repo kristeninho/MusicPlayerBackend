@@ -36,7 +36,8 @@ namespace MusicPlayerBackend.Tests.Repositories
 			var validAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO1");
 			using var dbContext = _context.CreateDbContext();
 			await InitializeDatabaseWithAnUser(dbContext, validAlbumDTO.UserName);
-            _azureCloudRepository.Setup(x => x.UploadFileToCloudAndReturnName(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync("abv");
+            _azureCloudRepository.Setup(x => x.UploadFileToCloudAndReturnName(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+				.ReturnsAsync("abv");
 
             //act
             var addAlbumResult = await _repository.AddAsync(validAlbumDTO);
