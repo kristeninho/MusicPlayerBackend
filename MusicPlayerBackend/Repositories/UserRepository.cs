@@ -11,7 +11,9 @@ namespace MusicPlayerBackend.Repositories
 	public class UserRepository : IUserRepository
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
-		public UserRepository(IDbContextFactory<AppDbContext> context)
+        private readonly IAzureCloudStorageRepository _azureCloudStorage = new AzureCloudStorageRepository();
+
+        public UserRepository(IDbContextFactory<AppDbContext> context)
 		{
 			_context = context;
 		}
@@ -61,17 +63,15 @@ namespace MusicPlayerBackend.Repositories
 
 		public async Task<UserDataDTO?> GetUserDataAsync(string userName)
 		{
-			//if (!_userCredentialsValidator.IsUserNameValid(userName)) return null;  -- this is done in the controller
-
 			using var dbContext = _context.CreateDbContext();
 			var user = await dbContext.Users.Include(u => u.Albums).ThenInclude(a => a.Songs).FirstOrDefaultAsync(u => u.Name == userName);
 			if (user == null) return null; //maybe remove this, because user can't be null if already logged in and authorized
-			UserDataDTO userDTO = TransferUserDataToDTO(user);
+			UserDataDTO userDTO = await TransferUserDataToDTO(user);
 
 			return userDTO;
 		}
 
-		private UserDataDTO TransferUserDataToDTO(User? user)
+		private async Task<UserDataDTO> TransferUserDataToDTO(User? user)
 		{
 			List<AlbumDTO> albumDTOs = new List<AlbumDTO>();
 			List<SongDTO> songDTOs = new List<SongDTO>();
@@ -85,7 +85,7 @@ namespace MusicPlayerBackend.Repositories
 					Duration = album.Duration,
 					UploadDate = album.UploadDate,
 					UserName = user.Name,
-					CoverImageUrl = album.CoverImageUrl,
+					CoverImage = await _azureCloudStorage.DownloadFileAndReturnAsString(album.CoverImageNameInCloud, "images"),
 					Songs = new List<SongDTO>()
 				};
 				
@@ -96,7 +96,7 @@ namespace MusicPlayerBackend.Repositories
 						Id = song.Id,
 						Name = song.Name,
 						Duration = song.Duration,
-						SongFileUrl = song.SongFileUrl,
+						SongFile = await _azureCloudStorage.DownloadFileAndReturnAsString(song.SongNameInCloud, "songs"),
 						UploadDate = song.UploadDate,
 						AlbumId = album.Id
 					};

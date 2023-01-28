@@ -31,7 +31,7 @@ namespace MusicPlayerBackend.Repositories
                 Name = songDTO.Name,
                 Album = album,
                 Duration = songDTO.Duration,
-                SongFileUrl = UploadSong(songDTO.SongFile),
+                SongNameInCloud = UploadSong(songDTO.SongFile),
                 UploadDate = songDTO.UploadDate
             };
 

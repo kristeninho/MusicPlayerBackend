@@ -322,21 +322,21 @@ namespace MusicPlayerBackend.Tests.Repositories
 				{
 					Name = "Song1",
 					Duration = "3:00",
-					SongFileUrl = "SSSSSSSSSSS",
+					SongNameInCloud = "SSSSSSSSSSS",
 					UploadDate = DateTime.Now,
 				},
 				new Song
 				{
 					Name = "Song2",
 					Duration = "2:00",
-					SongFileUrl = "SSSSSSS",
+					SongNameInCloud = "SSSSSSS",
 					UploadDate = DateTime.Now
 				},
 				new Song
 				{
 					Name = "Song2",
 					Duration = "4:00",
-					SongFileUrl = "SSSSSSSS",
+					SongNameInCloud = "SSSSSSSS",
 					UploadDate = DateTime.Now
 				}
 			};
@@ -344,7 +344,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 			var album = new Album
 			{
 				Name = "Album1",
-				CoverImageUrl = "AAAAA",
+				CoverImageNameInCloud = "AAAAA",
 				Duration = "9:00",
 				Songs = songList,
 				UploadDate = DateTime.Now
@@ -372,7 +372,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 					Duration = album.Duration,
 					UploadDate = album.UploadDate,
 					UserName = user.Name,
-					CoverImageUrl = album.CoverImageUrl,
+					CoverImageNameInCloud = album.CoverImageNameInCloud,
 					Songs = new List<SongDTO>()
 				};
 
@@ -383,7 +383,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 						Id = song.Id,
 						Name = song.Name,
 						Duration = song.Duration,
-						SongFileUrl = song.SongFileUrl,
+						SongNameInCloud = song.SongNameInCloud,
 						UploadDate = song.UploadDate,
 						AlbumId = album.Id
 					};

@@ -28,7 +28,7 @@ namespace MusicPlayerBackend.Helpers
         public bool IsAlbumDTOValid(AlbumDTO entity)
         {
             if (entity == null
-                || entity.CoverImageUrl == null || entity.CoverImageUrl == ""
+                || (entity.CoverImageNameInCloud == null && entity.CoverImage == null) || entity.CoverImageNameInCloud == "" || entity.CoverImage == ""
                 || entity.Id.ToString() == "00000000-0000-0000-0000-000000000000"
                 || !IsUserNameValid(entity.UserName)
                 || entity.Duration.Length < 4
@@ -54,18 +54,18 @@ namespace MusicPlayerBackend.Helpers
                     || song.AlbumId != albumId
                     || song.Duration.Length < 4
                     || song.Name.Length < 1
-                    || song.SongFileUrl == null || song.SongFileUrl == ""
+                    || (song.SongNameInCloud == null && song.SongFile == null) || song.SongNameInCloud == "" || song.SongFile == ""
                     || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false;
             return true;
         }
         public bool IsSongDTOValid(SongDTO song)
         {
-            //for singe song adding
+            //for single song adding
             if (song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
                     || song.AlbumId.ToString() == "00000000-0000-0000-0000-000000000000"
                     || song.Duration.Length < 4
                     || song.Name.Length < 1
-                    || song.SongFileUrl == null || song.SongFileUrl == ""
+                    || (song.SongNameInCloud == null && song.SongFile == null) || song.SongNameInCloud == "" || song.SongFile == ""
                     || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false;
             return true;
         }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Moq;
 using MusicPlayerBackend.Data;
 using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories;
+using MusicPlayerBackend.Repositories.Interfaces;
 using MusicPlayerBackend.Tests.Helpers;
 using System;
 using System.Collections.Generic;
@@ -18,11 +20,14 @@ namespace MusicPlayerBackend.Tests.Repositories
 		private readonly IDbContextFactory<AppDbContext> _context;
 		private readonly AlbumRepository _repository;
 		private readonly AlbumDTOs _albumDTOs;
+		private readonly Mock<IAzureCloudStorageRepository> _azureCloudRepository;
+		
 		public AlbumRepositoryTests()
 		{
 			_context = new TestDbContextFactory("AlbumInMemoryDb");
 			_repository = new AlbumRepository(_context);
 			_albumDTOs = new AlbumDTOs();
+			_azureCloudRepository = new Mock<IAzureCloudStorageRepository>();
 		}
 		[Fact]
 		public async void AlbumRepository_AddAsyncTest_ValidAlbumDTO()
@@ -31,9 +36,10 @@ namespace MusicPlayerBackend.Tests.Repositories
 			var validAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO1");
 			using var dbContext = _context.CreateDbContext();
 			await InitializeDatabaseWithAnUser(dbContext, validAlbumDTO.UserName);
+            _azureCloudRepository.Setup(x => x.UploadFileToCloudAndReturnName(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync("abv");
 
-			//act
-			var addAlbumResult = await _repository.AddAsync(validAlbumDTO);
+            //act
+            var addAlbumResult = await _repository.AddAsync(validAlbumDTO);
 			var expectedJson = JsonSerializer.Serialize(validAlbumDTO);
 			var actualJson = JsonSerializer.Serialize(addAlbumResult);
 
@@ -91,9 +97,10 @@ namespace MusicPlayerBackend.Tests.Repositories
 			using var dbContext = _context.CreateDbContext();
 			await InitializeDatabaseWithAnUser(dbContext, validAlbumDTO.UserName);
 			await _repository.AddAsync(validAlbumDTO);
+            _azureCloudRepository.Setup(x => x.DeleteAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
 
-			//act
-			var deleteAlbumResult = await _repository.DeleteAsync(validAlbumDTO.Id.ToString());
+            //act
+            var deleteAlbumResult = await _repository.DeleteAsync(validAlbumDTO.Id.ToString());
 
 			//assert
 			Assert.NotNull(deleteAlbumResult);
@@ -120,7 +127,9 @@ namespace MusicPlayerBackend.Tests.Repositories
 			var validAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO4");
 			using var dbContext = _context.CreateDbContext();
 			await InitializeDatabaseWithAnUser(dbContext, validAlbumDTO.UserName);
-			await _repository.AddAsync(validAlbumDTO);
+            //_azureCloudRepository.Setup(x => x.UploadAsync(It.IsAny<Stream>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
+            _azureCloudRepository.Setup(x => x.UploadFileToCloudAndReturnName(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync("ssadasdsadasdas");
+            await _repository.AddAsync(validAlbumDTO);
 
 			var updatedValidAlbumDTO = _albumDTOs.GetAlbumDTO("validAlbumDTO5"); //same id as validalbumdto4
 

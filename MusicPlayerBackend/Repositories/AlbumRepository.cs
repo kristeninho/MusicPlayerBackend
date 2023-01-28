@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.VisualBasic.FileIO;
 using MusicPlayerBackend.Data;
 using MusicPlayerBackend.Helpers;
 using MusicPlayerBackend.Models;
@@ -12,6 +14,7 @@ namespace MusicPlayerBackend.Repositories
 	public class AlbumRepository : IAlbumRepository
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
+		private readonly IAzureCloudStorageRepository _azureCloudStorage = new AzureCloudStorageRepository();
 		public AlbumRepository(IDbContextFactory<AppDbContext> context)
 		{
 			_context = context;
@@ -23,32 +26,62 @@ namespace MusicPlayerBackend.Repositories
 			var user = await GetUserByUsername(albumDTO.UserName, dbContext);
 			if (user == null) return null;
 
-			var coverUrl = "";
-
-			if (albumDTO.CoverImage == null) coverUrl = "defaultCoverImageURL"; // some default image url;
-			else coverUrl = UploadCoverImage(albumDTO.CoverImage);
+			var coverImageNameInCloud = "";
+			
+			if (albumDTO.CoverImage == null) coverImageNameInCloud = "defaultCoverImage"; // some default image url;
+			else
+			{
+				try
+				{
+					coverImageNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(albumDTO.UserName, albumDTO.Name, "jpg", albumDTO.CoverImage, "images"); 
+				}
+				catch (Exception ex)
+				{
+					return null; //failed to upload to cloud
+				}
+            }
 
 			var newAlbum = new Album
 			{
 				Id = albumDTO.Id,
 				Name = albumDTO.Name,
-				CoverImageUrl = coverUrl,
+				CoverImageNameInCloud = coverImageNameInCloud,
 				Duration = albumDTO.Duration,
 				UploadDate = albumDTO.UploadDate,
 				User = user
 			};
 
-			newAlbum.Songs = albumDTO.Songs.Select(s => new Song
+			var songList = new List<Song>();
+			foreach (var song in albumDTO.Songs)
 			{
-				Id = s.Id,
-				SongFileUrl = UploadSong(s.SongFile),
-				Duration = s.Duration,
-				Name = s.Name,
-				UploadDate = s.UploadDate,
-				Album = newAlbum
-			}).ToList();
+				songList.Add(new Song
+				{
+					Id = song.Id,
+					Name = song.Name,
+					Album = newAlbum,
+					Duration = song.Duration,
+					UploadDate = song.UploadDate,
+					SongNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(albumDTO.UserName, song.Name, "mp3", song.SongFile, "songs")
+				});
+			}
+			newAlbum.Songs = songList;
 
-			await dbContext.AddAsync(newAlbum);
+            // maybe need to use concurrentlist here
+            // maybe need ", new ParallelOptions { MaxDegreeOfParallelism = X}"
+            //Parallel.ForEach(albumDTO.Songs, async song =>
+            //{
+            //	newAlbum.Songs.Add(new Song
+            //	{
+            //		Id = song.Id,
+            //		Name = song.Name,
+            //		Album = newAlbum,
+            //		Duration = song.Duration,
+            //		UploadDate = song.UploadDate,
+            //		SongFileUrl = await UploadFileToCloud(albumDTO.UserName, song.Name, "mp3", song.SongFile, "songs")
+            //	});
+            //});
+
+            await dbContext.AddAsync(newAlbum);
 			await dbContext.SaveChangesAsync();
 
 			return albumDTO;
@@ -60,11 +93,18 @@ namespace MusicPlayerBackend.Repositories
 			var album = await dbContext.Albums.Include(x => x.Songs).FirstOrDefaultAsync(a => a.Id == new Guid(albumId));
 			if (album == null) return "Album does not exist";
 
-			RemoveAlbumFiles(album);
-			dbContext.Albums.Remove(album);
-			await dbContext.SaveChangesAsync();
+			try
+			{
+                await RemoveAlbumFilesFromCloud(album, album.Songs);
+                dbContext.Albums.Remove(album);
+                await dbContext.SaveChangesAsync();
 
-			return "Album deleted";
+                return "Album deleted";
+            }
+			catch (Exception ex) 
+			{
+				return $"EXCEPTION: {ex}";
+			}
 		}
 
         public async Task<AlbumDTO?> UpdateAsync(AlbumDTO albumDTO)
@@ -74,10 +114,27 @@ namespace MusicPlayerBackend.Repositories
 			var album = await dbContext.Albums.Include(x => x.Songs).FirstOrDefaultAsync(a => a.Id==albumDTO.Id);
 			if (album == null) return null;
 
-            // need to think about what exactly should be updatable
+			// need to think about what exactly should be updatable
+			var coverImageNameInCloud = "";
+
+			if (albumDTO.CoverImage == null) coverImageNameInCloud = "defaultCoverImage";
+            else
+            {
+                try
+                {
+                    if (!album.Name.Equals(albumDTO.Name)) await _azureCloudStorage.DeleteAsync(album.CoverImageNameInCloud, "images");
+
+                    coverImageNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(albumDTO.UserName, albumDTO.Name, "jpg", albumDTO.CoverImage, "images");
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+
             album.UploadDate=albumDTO.UploadDate;
 			//album.Duration = album.Duration;
-			//album.CoverImageUrl = album.CoverImageUrl;
+			album.CoverImageNameInCloud = coverImageNameInCloud;
 			album.Name = albumDTO.Name;
 			await dbContext.SaveChangesAsync();
 
@@ -91,30 +148,25 @@ namespace MusicPlayerBackend.Repositories
 			return await dbContext.Albums.AnyAsync(x => x.Id == albumId);
 		}
 
-        private string UploadSong(string? songFile) //should be moved to seperate cloud helper class
+        private async Task RemoveAlbumFilesFromCloud(Album album, ICollection<Song> songs)
         {
-            //upload the song to cloud here and get its url
-            return "songURL";
-        }
-
-        private string UploadCoverImage(string coverImage) //should be moved to seperate cloud helper class
-        {
-            //upload the cover to cloud here and get its url
-            return "coverImageURL"; //return the url
-        }
-
-        private void RemoveAlbumFiles(Album album) //should be moved to seperate cloud helper class
-        {
-            // remove album.CoverImageUrl file from cloud
-            foreach (var song in album.Songs)
+            try
             {
-				RemoveSongFile(song);
-            }
-        }
+                // remove image
+                if (album.CoverImageNameInCloud != "defaultCoverImage") await _azureCloudStorage.DeleteAsync(album.CoverImageNameInCloud, "images");
 
-        private void RemoveSongFile(Song song) //should be moved to seperate cloud helper class
-        {
-            // remove song.SongFileUrl file from cloud
+                // remove songs
+                // maybe need ", new ParallelOptions { MaxDegreeOfParallelism = X}"
+                Parallel.ForEach(songs, async song =>
+                {
+                    await _azureCloudStorage.DeleteAsync(song.SongNameInCloud, "songs");
+                });
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         private async Task<User> GetUserByUsername(string userName, AppDbContext dbContext)

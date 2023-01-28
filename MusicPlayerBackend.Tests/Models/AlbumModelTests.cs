@@ -12,7 +12,7 @@ namespace MusicPlayerBackend.Tests.Models
                 Id = new Guid(),
                 Name = "Album name",
                 UploadDate = DateTime.Now,
-                CoverImageUrl = "SSSSSS",
+                CoverImageNameInCloud = "SSSSSS",
                 Duration = "30:00",
                 Songs = new List<Song>(),
                 User = new User()
@@ -34,9 +34,9 @@ namespace MusicPlayerBackend.Tests.Models
         [Fact]
         public void AlbumDurationIsTypeStringTest() => Assert.IsType<string>(_album.Duration);
         [Fact]
-        public void AlbumModelHasCoverImagePropertyTest() => Assert.NotNull(_album.CoverImageUrl);
+        public void AlbumModelHasCoverImagePropertyTest() => Assert.NotNull(_album.CoverImageNameInCloud);
         [Fact]
-        public void AlbumCoverImageIsTypeStringTest() => Assert.IsType<string>(_album.CoverImageUrl);
+        public void AlbumCoverImageIsTypeStringTest() => Assert.IsType<string>(_album.CoverImageNameInCloud);
         [Fact]
         public void AlbumModelHasUploadDatePropertyTest() => Assert.NotNull(_album.UploadDate);
         [Fact]

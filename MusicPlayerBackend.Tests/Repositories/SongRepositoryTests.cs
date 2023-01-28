@@ -149,7 +149,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 			var album = new Album
 			{
 				Id = albumDTO.Id,
-				CoverImageUrl = albumDTO.CoverImageUrl,
+				CoverImageNameInCloud = albumDTO.CoverImageNameInCloud,
 				Duration = albumDTO.Duration,
 				Name = albumDTO.Name,
 				UploadDate = albumDTO.UploadDate,
