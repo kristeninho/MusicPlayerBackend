@@ -83,7 +83,7 @@ namespace MusicPlayerBackend.Repositories
                     base64 = ms.ToArray();
                 }
 
-                return Encoding.UTF8.GetString(base64);
+                return Convert.ToBase64String(base64);
                 
             }
             catch (Exception ex)
