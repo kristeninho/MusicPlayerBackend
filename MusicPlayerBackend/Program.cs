@@ -11,8 +11,15 @@ using ConfigurationManager = MusicPlayerBackend.ConfigurationManager;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// For cloud DB
 builder.Services.AddPooledDbContextFactory<AppDbContext>(options
-    => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext")));
+    => options.UseSqlServer(ConfigurationManager.AzureConnectionStrings.GetConnectionString("Database")));
+
+// For local DB
+//builder.Services.AddPooledDbContextFactory<AppDbContext>(options
+//    => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext")));
+
 builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IAlbumRepository, AlbumRepository>();

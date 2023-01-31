@@ -3,7 +3,7 @@
     public class ConfigurationManager
     {
         public static IConfiguration AppSetting { get; }
-        protected internal static IConfiguration AzureConnectionString { get; }
+        protected internal static IConfiguration AzureConnectionStrings { get; }
         static ConfigurationManager()
         {
             AppSetting = new ConfigurationBuilder()
@@ -11,7 +11,7 @@
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            AzureConnectionString = new ConfigurationBuilder()
+            AzureConnectionStrings = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile($"appsettings_secret.json")
                 .Build();

@@ -7,7 +7,7 @@ namespace MusicPlayerBackend.Repositories
 {
     public class AzureCloudStorageRepository : IAzureCloudStorageRepository
     {
-        private string _connectionString = ConfigurationManager.AzureConnectionString.GetConnectionString("AzureConnectionString");
+        private string _connectionString = ConfigurationManager.AzureConnectionStrings.GetConnectionString("Storage");
 
         public async Task<bool> DeleteAsync(string fileName, string containerName)
         {
