@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MusicPlayerBackend.Helpers;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Models.JWT;
 using MusicPlayerBackend.Repositories.Interfaces;
-using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -26,7 +24,7 @@ namespace MusicPlayerBackend.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] UserCredentialsDTO user)
+        public async Task<IActionResult> Login([FromBody] UserCredentialsDTO user)
         {
             if (user == null || !_validator.AreUserCredentialsValid(user)) return BadRequest("Invalid user request");
 
