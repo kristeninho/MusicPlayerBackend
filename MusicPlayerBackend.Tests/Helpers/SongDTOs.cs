@@ -1,13 +1,8 @@
 ﻿using MusicPlayerBackend.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MusicPlayerBackend.Tests.Helpers
 {
-	public class SongDTOs
+    public class SongDTOs
 	{
 		public SongDTO GetSongDTO(string type)
 		{

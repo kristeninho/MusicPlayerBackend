@@ -1,13 +1,11 @@
 ﻿using MusicPlayerBackend.Repositories.Interfaces;
 using Azure.Storage.Blobs;
-using Microsoft.AspNetCore.Mvc;
-using System.Text;
 
 namespace MusicPlayerBackend.Repositories
 {
     public class AzureCloudStorageRepository : IAzureCloudStorageRepository
     {
-        private string _connectionString = ConfigurationManager.AzureConnectionStrings.GetConnectionString("Storage");
+        private string _connectionString = ConfigurationManager.SecretAppSettings.GetConnectionString("Storage");
 
         public async Task<bool> DeleteAsync(string fileName, string containerName)
         {

@@ -1,17 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.VisualBasic.FileIO;
 using MusicPlayerBackend.Data;
-using MusicPlayerBackend.Helpers;
 using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories.Interfaces;
-using System.Globalization;
-using System.Text;
 
 namespace MusicPlayerBackend.Repositories
 {
-	public class AlbumRepository : IAlbumRepository
+    public class AlbumRepository : IAlbumRepository
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
 		private readonly IAzureCloudStorageRepository _azureCloudStorage = new AzureCloudStorageRepository();

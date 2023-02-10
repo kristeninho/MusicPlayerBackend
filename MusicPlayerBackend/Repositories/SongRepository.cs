@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicPlayerBackend.Data;
-using MusicPlayerBackend.Helpers;
 using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories.Interfaces;
-using System.Text;
 
 namespace MusicPlayerBackend.Repositories
 {

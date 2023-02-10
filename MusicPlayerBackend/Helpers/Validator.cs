@@ -1,5 +1,4 @@
-﻿using MusicPlayerBackend.Models;
-using MusicPlayerBackend.Models.DTOs;
+﻿using MusicPlayerBackend.Models.DTOs;
 
 namespace MusicPlayerBackend.Helpers
 {

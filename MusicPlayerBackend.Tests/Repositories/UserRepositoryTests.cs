@@ -4,11 +4,6 @@ using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories;
 using System.Text.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MusicPlayerBackend.Repositories.Interfaces;
 using Moq;
 
@@ -46,8 +41,9 @@ namespace MusicPlayerBackend.Tests.Repositories
 			Assert.Equal(validUserCredentialsDTO, addUserResult);
 			Assert.NotNull(newUserInDatabase);
 			Assert.Equal(validUserCredentialsDTO.UserName, newUserInDatabase.Name);
-			Assert.Equal(validUserCredentialsDTO.Password, newUserInDatabase.Password);
-		}
+			Assert.Equal("03D926C0F0E6AEDD1C858A91DCDFA01E50205A8EA1D1D570BF2BCC741D63691BB2C70537AC7F98425157DD1750839357442F3834F2F6EAE54262A8E2A99F65E0", newUserInDatabase.Password);
+
+        }
 
 		// TODO: This test has to be moved, since the username validation was moved
 

@@ -3,15 +3,20 @@ using MusicPlayerBackend.Data;
 using MusicPlayerBackend.Models;
 using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories.Interfaces;
-using MusicPlayerBackend.Helpers;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace MusicPlayerBackend.Repositories
 {
-	public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
         private readonly IAzureCloudStorageRepository _azureCloudStorage = new AzureCloudStorageRepository();
+
+        private readonly byte[] _passwordSalt = Encoding.ASCII.GetBytes(ConfigurationManager.SecretAppSettings.GetValue<string>("PasswordSalt"));
+        private readonly int _keySize = 64;
+        private readonly int _iterations = 350000;
+        private readonly HashAlgorithmName _hashAlgorithm = HashAlgorithmName.SHA512;
 
         public UserRepository(IDbContextFactory<AppDbContext> context)
 		{
@@ -25,7 +30,7 @@ namespace MusicPlayerBackend.Repositories
             var user = new User
             {
                 Name = userCredentialsDTO.UserName,
-                Password = userCredentialsDTO.Password
+                Password = HashPassword(userCredentialsDTO.Password)
             };
             await dbContext.Users.AddAsync(user);
             await dbContext.SaveChangesAsync();
@@ -55,7 +60,7 @@ namespace MusicPlayerBackend.Repositories
 			User? user = await GetUserByNameAsync(userCredentialsDTO.UserName, dbContext);
 			if (user == null) return null; //maybe remove this, because user can't be null if already logged in and authorized
 
-			user.Password = userCredentialsDTO.Password;
+			user.Password = HashPassword(userCredentialsDTO.Password);
 			await dbContext.SaveChangesAsync();
 
 			return userCredentialsDTO;
@@ -124,13 +129,29 @@ namespace MusicPlayerBackend.Repositories
 		{
             using var dbContext = _context.CreateDbContext();
 
-			return await dbContext.Users.AnyAsync(x => x.Name == user.UserName && x.Password == user.Password);
+			return await dbContext.Users.AnyAsync(x => x.Name == user.UserName && VerifyPassword(user.Password, x.Password, _passwordSalt));
         }
         public async Task<bool> CheckIfUserExistsByUsername(string userName)
         {
             using var dbContext = _context.CreateDbContext();
 
             return await dbContext.Users.AnyAsync(x => x.Name == userName);
+        }
+        private string HashPassword(string password)
+        {
+            var hash = Rfc2898DeriveBytes.Pbkdf2(
+                Encoding.UTF8.GetBytes(password),
+                _passwordSalt,
+                _iterations,
+                _hashAlgorithm,
+                _keySize);
+
+            return Convert.ToHexString(hash);
+        }
+        private bool VerifyPassword(string password, string hash, byte[] salt)
+        {
+            var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, _iterations, _hashAlgorithm, _keySize);
+            return hashToCompare.SequenceEqual(Convert.FromHexString(hash));
         }
     }
 }

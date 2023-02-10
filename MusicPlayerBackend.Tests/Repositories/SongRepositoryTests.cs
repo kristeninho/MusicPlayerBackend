@@ -6,12 +6,7 @@ using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories;
 using MusicPlayerBackend.Repositories.Interfaces;
 using MusicPlayerBackend.Tests.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace MusicPlayerBackend.Tests.Repositories
 {

@@ -2,20 +2,14 @@
 using Moq;
 using MusicPlayerBackend.Data;
 using MusicPlayerBackend.Models;
-using MusicPlayerBackend.Models.DTOs;
 using MusicPlayerBackend.Repositories;
 using MusicPlayerBackend.Repositories.Interfaces;
 using MusicPlayerBackend.Tests.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace MusicPlayerBackend.Tests.Repositories
 {
-	public class AlbumRepositoryTests
+    public class AlbumRepositoryTests
 	{
 		private readonly IDbContextFactory<AppDbContext> _context;
 		private readonly AlbumRepository _repository;
