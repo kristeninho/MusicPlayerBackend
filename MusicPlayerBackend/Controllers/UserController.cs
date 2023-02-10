@@ -65,7 +65,6 @@ namespace MusicPlayerBackend.Controllers
 
 		// DELETE: api/user
 		// Will delete user from the database
-        // TODO: check how to use only username here
 		[HttpDelete("DeleteUser"), Authorize]
         public async Task<ActionResult<string>> DeleteUser(UserCredentialsDTO user)
 		{

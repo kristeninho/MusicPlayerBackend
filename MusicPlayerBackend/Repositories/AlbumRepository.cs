@@ -62,7 +62,8 @@ namespace MusicPlayerBackend.Repositories
                 }
                 newAlbum.Songs = songList;
 
-                // maybe need to use concurrentlist here
+                // mabye can use Parralellism here.
+                // would need to use concurrentlist
                 // maybe need ", new ParallelOptions { MaxDegreeOfParallelism = X}"
                 //Parallel.ForEach(albumDTO.Songs, async song =>
                 //{
@@ -135,7 +136,6 @@ namespace MusicPlayerBackend.Repositories
             }
 
             album.UploadDate=albumDTO.UploadDate;
-			//album.Duration = album.Duration;
 			album.CoverImageNameInCloud = coverImageNameInCloud;
 			album.Name = albumDTO.Name;
 			await dbContext.SaveChangesAsync();

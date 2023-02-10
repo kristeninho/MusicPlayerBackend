@@ -80,7 +80,7 @@ namespace MusicPlayerBackend.Repositories
 		{
 			List<AlbumDTO> albumDTOs = new List<AlbumDTO>();
 			List<SongDTO> songDTOs = new List<SongDTO>();
-			// this can maybe be done using TPL
+			// this can maybe be done in parallel
 			try 
 			{
                 foreach (var album in user.Albums)

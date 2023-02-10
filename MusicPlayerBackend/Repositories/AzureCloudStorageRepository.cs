@@ -51,7 +51,7 @@ namespace MusicPlayerBackend.Repositories
 
         public async Task<string> UploadFileToCloudAndReturnName(string userName, string fileName, string fileType, string file, string containerName)
         {
-            // need some logic working with the file types
+            // need some logic working with the file types, if other file types will be supported
             // possibly send the file type with the albumDTO
             try
             {
@@ -70,7 +70,7 @@ namespace MusicPlayerBackend.Repositories
 
         public async Task<string> DownloadFileAndReturnAsString(string fileName, string containerName)
         {
-            // need some logic working with the file types
+            // need some logic working with the file types, if other file types will be supported
             // possibly send the file type with the albumDTO
             try
             {

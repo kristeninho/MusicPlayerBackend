@@ -28,7 +28,6 @@ namespace MusicPlayerBackend.Controllers
         {
             if (user == null || !_validator.AreUserCredentialsValid(user)) return BadRequest("Invalid user request");
 
-            //TODO: check for user in the database here. if user exists then check if password matches.
             if (await _userRepository.CheckIfUserExistsByUsernameAndPassword(user))
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationManager.AppSetting["JWT:Secret"]));
