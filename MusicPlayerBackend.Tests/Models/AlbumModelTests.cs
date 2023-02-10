@@ -13,7 +13,6 @@ namespace MusicPlayerBackend.Tests.Models
                 Name = "Album name",
                 UploadDate = DateTime.Now,
                 CoverImageNameInCloud = "SSSSSS",
-                Duration = "30:00",
                 Songs = new List<Song>(),
                 User = new User()
             };
@@ -29,10 +28,6 @@ namespace MusicPlayerBackend.Tests.Models
         public void AlbumModelHasNamePropertyTest() => Assert.NotNull(_album.Name);
         [Fact]
         public void AlbumNameIsTypeStringTest() => Assert.IsType<string>(_album.Name);
-        [Fact]
-        public void AlbumModelHasDurationPropertyTest() => Assert.NotNull(_album.Duration);
-        [Fact]
-        public void AlbumDurationIsTypeStringTest() => Assert.IsType<string>(_album.Duration);
         [Fact]
         public void AlbumModelHasCoverImagePropertyTest() => Assert.NotNull(_album.CoverImageNameInCloud);
         [Fact]

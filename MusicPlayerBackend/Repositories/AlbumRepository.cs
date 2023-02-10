@@ -46,7 +46,6 @@ namespace MusicPlayerBackend.Repositories
 				Id = albumDTO.Id,
 				Name = albumDTO.Name,
 				CoverImageNameInCloud = coverImageNameInCloud,
-				Duration = albumDTO.Duration,
 				UploadDate = albumDTO.UploadDate,
 				User = user
 			};
@@ -62,7 +61,6 @@ namespace MusicPlayerBackend.Repositories
                         Id = song.Id,
                         Name = song.Name,
                         Album = newAlbum,
-                        Duration = song.Duration,
                         UploadDate = song.UploadDate,
                         SongNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(albumDTO.UserName, song.Name, "mp3", song.SongFile, "songs")
                     });

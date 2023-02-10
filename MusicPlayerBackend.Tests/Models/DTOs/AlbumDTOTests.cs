@@ -11,7 +11,6 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
             {
                 Id = new Guid(),
                 Name = "Album name",
-                Duration = "30:00",
                 UploadDate = DateTime.Now,
                 CoverImage = "ASDSADDSA",
                 CoverImageNameInCloud = "ASDASDSAFDSADASDS",
@@ -34,10 +33,6 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
         public void AlbumDTOHasUploadDatePropertyTest() => Assert.NotNull(_albumDTO.UploadDate);
         [Fact]
         public void AlbumDTOUploadDatePropertyIsTypeDateTimeTest() => Assert.IsType<DateTime>(_albumDTO.UploadDate);
-        [Fact]
-        public void AlbumDTOHasDurationPropertyTest() => Assert.NotNull(_albumDTO.Duration);
-        [Fact]
-        public void AlbumDTODurationPropertyIsTypeStringTest() => Assert.IsType<string>(_albumDTO.Duration);
         [Fact]
         public void AlbumDTOHasCoverImageUrlPropertyTest() => Assert.NotNull(_albumDTO.CoverImageNameInCloud);
         [Fact]

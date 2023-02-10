@@ -13,12 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // For cloud DB
-builder.Services.AddPooledDbContextFactory<AppDbContext>(options
-    => options.UseSqlServer(ConfigurationManager.AzureConnectionStrings.GetConnectionString("Database")));
+//builder.Services.AddPooledDbContextFactory<AppDbContext>(options
+//    => options.UseSqlServer(ConfigurationManager.AzureConnectionStrings.GetConnectionString("Database")));
 
 // For local DB
-//builder.Services.AddPooledDbContextFactory<AppDbContext>(options
-//    => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext")));
+builder.Services.AddPooledDbContextFactory<AppDbContext>(options
+    => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext")));
 
 builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();

@@ -164,7 +164,6 @@ namespace MusicPlayerBackend.Tests.Repositories
 			{
 				Id = albumDTO.Id,
 				CoverImageNameInCloud = albumDTO.CoverImageNameInCloud,
-				Duration = albumDTO.Duration,
 				Name = albumDTO.Name,
 				UploadDate = albumDTO.UploadDate,
 				User = u,

@@ -24,14 +24,7 @@ namespace MusicPlayerBackend.Tests.Repositories
 			_context = new TestDbContextFactory("UserInMemoryDb");
 			_repository = new UserRepository(_context);
             _azureCloudRepository = new Mock<IAzureCloudStorageRepository>();
-            //InitializeDatabase(_context);
         }
-
-		//private void InitializeDatabase(IDbContextFactory<AppDbContext> context)
-		//{
-		//	//var dbContext = context.CreateDbContext();
-		//	//dbContext.Database.EnsureCreated();
-		//}
 
 		[Fact]
 		public async void UserRepository_AddAsyncTest_ValidUser()
@@ -326,21 +319,18 @@ namespace MusicPlayerBackend.Tests.Repositories
 				new Song
 				{
 					Name = "Song1",
-					Duration = "3:00",
 					SongNameInCloud = "AAAAA",
 					UploadDate = DateTime.Now,
 				},
 				new Song
 				{
 					Name = "Song2",
-					Duration = "2:00",
 					SongNameInCloud = "AAAAA",
 					UploadDate = DateTime.Now
 				},
 				new Song
 				{
 					Name = "Song2",
-					Duration = "4:00",
 					SongNameInCloud = "AAAAA",
 					UploadDate = DateTime.Now
 				}
@@ -350,7 +340,6 @@ namespace MusicPlayerBackend.Tests.Repositories
 			{
 				Name = "Album1",
 				CoverImageNameInCloud = "AAAAA",
-				Duration = "9:00",
 				Songs = songList,
 				UploadDate = DateTime.Now
 			};
@@ -374,7 +363,6 @@ namespace MusicPlayerBackend.Tests.Repositories
 				{
 					Id = album.Id,
 					Name = album.Name,
-					Duration = album.Duration,
 					UploadDate = album.UploadDate,
 					UserName = user.Name,
 					CoverImageNameInCloud = album.CoverImageNameInCloud,
@@ -387,7 +375,6 @@ namespace MusicPlayerBackend.Tests.Repositories
 					{
 						Id = song.Id,
 						Name = song.Name,
-						Duration = song.Duration,
 						SongNameInCloud = song.SongNameInCloud,
 						UploadDate = song.UploadDate,
 						AlbumId = album.Id,

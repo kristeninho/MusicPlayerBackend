@@ -84,7 +84,6 @@ namespace MusicPlayerBackend.Repositories
                     {
                         Id = album.Id,
                         Name = album.Name,
-                        Duration = album.Duration,
                         UploadDate = album.UploadDate,
                         UserName = user.Name,
                         CoverImage = await _azureCloudStorage.DownloadFileAndReturnAsString(album.CoverImageNameInCloud, "images"),
@@ -97,7 +96,6 @@ namespace MusicPlayerBackend.Repositories
                         {
                             Id = song.Id,
                             Name = song.Name,
-                            Duration = song.Duration,
                             SongFile = await _azureCloudStorage.DownloadFileAndReturnAsString(song.SongNameInCloud, "songs"),
                             UploadDate = song.UploadDate,
                             AlbumId = album.Id,

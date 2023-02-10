@@ -11,7 +11,6 @@ namespace MusicPlayerBackend.Tests.Models
             {
                 Id = new Guid(),
                 Name = "Song name",
-                Duration = "3.30",
                 SongNameInCloud = "SSS",
                 UploadDate = DateTime.Now,
                 Album = new Album()
@@ -28,10 +27,6 @@ namespace MusicPlayerBackend.Tests.Models
         public void SongModelHasNamePropertyTest() => Assert.NotNull(_song.Name);
         [Fact]
         public void SongNameIsTypeStringTest() => Assert.IsType<string>(_song.Name);
-        [Fact]
-        public void SongModelHasDurationPropertyTest() => Assert.NotNull(_song.Duration);
-        [Fact]
-        public void SongDurationIsTypeStringTest() => Assert.IsType<string>(_song.Duration);
         [Fact]
         public void SongModelHasSongFilePropertyTest() => Assert.NotNull(_song.SongNameInCloud);
         [Fact]

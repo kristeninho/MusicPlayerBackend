@@ -33,7 +33,6 @@ namespace MusicPlayerBackend.Repositories
                     Id = songDTO.Id, //might be removed so id would be generated in the BE
                     Name = songDTO.Name,
                     Album = album,
-                    Duration = songDTO.Duration,
                     SongNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(songDTO.UserName, songDTO.Name, "mp3", songDTO.SongFile, "songs"),
                     UploadDate = songDTO.UploadDate
                 };

@@ -31,7 +31,6 @@ namespace MusicPlayerBackend.Helpers
                 || (entity.CoverImageNameInCloud == null && entity.CoverImage == null) || entity.CoverImageNameInCloud == "" || entity.CoverImage == ""
                 || entity.Id.ToString() == "00000000-0000-0000-0000-000000000000"
                 || !IsUserNameValid(entity.UserName)
-                || entity.Duration.Length < 4
                 || entity.Songs.Count < 1
                 || entity.Name == null // maybe unnecessary
                 || entity.Name.Length < 1
@@ -52,7 +51,6 @@ namespace MusicPlayerBackend.Helpers
         {
             if (song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
                     || song.AlbumId != albumId
-                    || song.Duration.Length < 4
                     || song.Name.Length < 1
                     || (song.SongNameInCloud == null && song.SongFile == null) || song.SongNameInCloud == "" || song.SongFile == ""
                     || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false
@@ -64,7 +62,6 @@ namespace MusicPlayerBackend.Helpers
             //for single song adding
             if (song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
                     || song.AlbumId.ToString() == "00000000-0000-0000-0000-000000000000"
-                    || song.Duration.Length < 4
                     || song.Name.Length < 1
                     || (song.SongNameInCloud == null && song.SongFile == null) || song.SongNameInCloud == "" || song.SongFile == ""
                     || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false

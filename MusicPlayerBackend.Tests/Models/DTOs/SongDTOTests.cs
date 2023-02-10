@@ -12,7 +12,6 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
                 Id = new Guid(),
                 Name = "Song Name",
                 UploadDate = DateTime.Now,
-                Duration = "3:00",
                 SongFile = "SADSADA",
                 SongNameInCloud = "SADSADSADSADSAD",
                 AlbumId = new Guid(),
@@ -35,10 +34,6 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
         [Fact]
         public void SongDTOUploadDatePropertyIsTypeDateTimeTest() => Assert.IsType<DateTime>(_songDTO.UploadDate);
         [Fact]
-        public void SongDTOHasDurationPropertyTest() => Assert.NotNull(_songDTO.Duration);
-        [Fact]
-        public void SongDTODurationPropertyIsTypeStringTest() => Assert.IsType<string>(_songDTO.Duration);
-        [Fact]
         public void SongDTOHasSongFileUrlPropertyTest() => Assert.NotNull(_songDTO.SongNameInCloud);
         [Fact]
         public void SongDTOSongFileUrlPropertyIsTypeStringTest() => Assert.IsType<string>(_songDTO.SongNameInCloud);
@@ -60,7 +55,6 @@ namespace MusicPlayerBackend.Tests.Models.DTOs
             var songDTOWithoutAlbum = new SongDTO
             {
                 Id = new Guid(),
-                Duration = "3:00",
                 Name = "Song name",
                 UploadDate = DateTime.Now,
                 SongNameInCloud = "SDASADSADASDSAFASFSAF"
