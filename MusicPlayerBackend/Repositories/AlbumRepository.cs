@@ -117,7 +117,6 @@ namespace MusicPlayerBackend.Repositories
 			var album = await dbContext.Albums.Include(x => x.Songs).FirstOrDefaultAsync(a => a.Id==albumDTO.Id);
 			if (album == null) return null;
 
-			// need to think about what exactly should be updatable
 			var coverImageNameInCloud = "";
 
 			if (albumDTO.CoverImage == null) coverImageNameInCloud = "defaultCoverImage";
@@ -135,7 +134,7 @@ namespace MusicPlayerBackend.Repositories
                 }
             }
 
-            album.UploadDate=albumDTO.UploadDate;
+            album.UploadDate = albumDTO.UploadDate;
 			album.CoverImageNameInCloud = coverImageNameInCloud;
 			album.Name = albumDTO.Name;
 			await dbContext.SaveChangesAsync();

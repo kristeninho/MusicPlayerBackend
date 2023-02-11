@@ -28,7 +28,7 @@ namespace MusicPlayerBackend.Repositories
             {
                 var song = new Song()
                 {
-                    Id = songDTO.Id, //might be removed so id would be generated in the BE
+                    Id = songDTO.Id,
                     Name = songDTO.Name,
                     Album = album,
                     SongNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(songDTO.UserName, songDTO.Name, "mp3", songDTO.SongFile, "songs"),
@@ -73,7 +73,6 @@ namespace MusicPlayerBackend.Repositories
             var song = await dbContext.Songs.FirstOrDefaultAsync(x => x.Id == songDTO.Id);
             if (song == null) return null;
 
-            // need to think about what exactly should be updatable
             song.UploadDate = songDTO.UploadDate;
             song.Name = songDTO.Name;
 
