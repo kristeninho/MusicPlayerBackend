@@ -23,7 +23,7 @@ namespace MusicPlayerBackend.Repositories
 			_context = context;
 		}
 
-		public async Task<UserCredentialsDTO?> AddAsync(UserCredentialsDTO userCredentialsDTO)
+		public async Task<(string, string)?> AddAsync(UserCredentialsDTO userCredentialsDTO)
 		{
             using var dbContext = _context.CreateDbContext();
 
@@ -34,7 +34,7 @@ namespace MusicPlayerBackend.Repositories
             };
             await dbContext.Users.AddAsync(user);
             await dbContext.SaveChangesAsync();
-            return userCredentialsDTO;
+            return (user.Name, user.Id.ToString());
         }
 
 		public async Task<string> DeleteAsync(string userName)
@@ -129,7 +129,9 @@ namespace MusicPlayerBackend.Repositories
 		{
             using var dbContext = _context.CreateDbContext();
 
-			return await dbContext.Users.AnyAsync(x => x.Name == user.UserName && VerifyPassword(user.Password, x.Password, _passwordSalt));
+            var u = await dbContext.Users.FirstOrDefaultAsync(x => x.Name == user.UserName);
+
+            return u == null ? false : VerifyPassword(user.Password, u.Password);
         }
         public async Task<bool> CheckIfUserExistsByUsername(string userName)
         {
@@ -148,9 +150,11 @@ namespace MusicPlayerBackend.Repositories
 
             return Convert.ToHexString(hash);
         }
-        private bool VerifyPassword(string password, string hash, byte[] salt)
+        private bool VerifyPassword(string password, string hash)
         {
-            var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, _iterations, _hashAlgorithm, _keySize);
+            var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, _passwordSalt, _iterations, _hashAlgorithm, _keySize);
+
+            //var hashToCompare = Convert.FromHexString(HashPassword(password));
             return hashToCompare.SequenceEqual(Convert.FromHexString(hash));
         }
     }

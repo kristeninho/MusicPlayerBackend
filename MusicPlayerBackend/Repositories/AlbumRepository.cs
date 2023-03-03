@@ -14,7 +14,7 @@ namespace MusicPlayerBackend.Repositories
 		{
 			_context = context;
 		}
-		public async Task<AlbumDTO?> AddAsync(AlbumDTO albumDTO)
+		public async Task<(string, string)?> AddAsync(AlbumDTO albumDTO)
 		{
 			using var dbContext = _context.CreateDbContext();
 
@@ -36,9 +36,10 @@ namespace MusicPlayerBackend.Repositories
 				}
             }
 
+            //var albumId = Guid.NewGuid();
 			var newAlbum = new Album
 			{
-				Id = albumDTO.Id,
+				//Id = albumId,
 				Name = albumDTO.Name,
 				CoverImageNameInCloud = coverImageNameInCloud,
 				UploadDate = albumDTO.UploadDate,
@@ -53,7 +54,7 @@ namespace MusicPlayerBackend.Repositories
                 {
                     songList.Add(new Song
                     {
-                        Id = song.Id,
+                        //Id = Guid.NewGuid(),
                         Name = song.Name,
                         Album = newAlbum,
                         UploadDate = song.UploadDate,
@@ -81,7 +82,7 @@ namespace MusicPlayerBackend.Repositories
                 await dbContext.AddAsync(newAlbum);
                 await dbContext.SaveChangesAsync();
 
-                return albumDTO;
+                return (newAlbum.Name, newAlbum.Id.ToString());
             } 
 			catch (Exception ex)
 			{

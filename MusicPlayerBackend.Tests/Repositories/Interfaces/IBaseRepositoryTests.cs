@@ -11,7 +11,7 @@ namespace MusicPlayerBackend.Tests.Repositories.Interfaces
 			_iBaseRepository = new Mock<IBaseRepository<TestType>>().Object;
 		}
 		[Fact]
-		public void IBaseRepositoryHasAddAsyncTaskTest() => Assert.True(_iBaseRepository.AddAsync(new TestType()) is Task<TestType>);
+		public void IBaseRepositoryHasAddAsyncTaskTest() => Assert.True(_iBaseRepository.AddAsync(new TestType()) is Task<(string, string)?>);
 		[Fact]
 		public void IBaseRepositoryHasUpdateAsyncTaskTest() => Assert.True(_iBaseRepository.UpdateAsync(new TestType()) is Task<TestType>);
 		[Fact]

@@ -28,40 +28,40 @@ namespace MusicPlayerBackend.Helpers
         {
             if (entity == null
                 || (entity.CoverImageNameInCloud == null && entity.CoverImage == null) || entity.CoverImageNameInCloud == "" || entity.CoverImage == ""
-                || entity.Id.ToString() == "00000000-0000-0000-0000-000000000000"
+                //|| entity.Id.ToString() == "00000000-0000-0000-0000-000000000000"
                 || !IsUserNameValid(entity.UserName)
                 || entity.Songs.Count < 1
                 || entity.Name == null // maybe unnecessary
                 || entity.Name.Length < 1
                 || DateTime.Compare(DateTime.Now, entity.UploadDate) < 0
-                || !AreSongDTOsValid(entity.Id, entity.Songs)
+                || !AreSongDTOsValid(entity.Songs)
                 ) return false;
             return true;
         }
-        public bool AreSongDTOsValid(Guid albumId, List<SongDTO> songs)
+        public bool AreSongDTOsValid(List<SongDTO> songs)
         {
             foreach (var song in songs)
             {
-                if (!IsSongDTOValid(song, albumId)) return false;
+                if (!IsSongDTOValid(song)) return false;
             }
             return true;
         }
-        public bool IsSongDTOValid(SongDTO song, Guid albumId)
-        {
-            if (song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
-                    || song.AlbumId != albumId
-                    || song.Name.Length < 1
-                    || (song.SongNameInCloud == null && song.SongFile == null) || song.SongNameInCloud == "" || song.SongFile == ""
-                    || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false
-                    || IsUserNameValid(song.UserName);
-            return true;
-        }
+        //public bool IsSongDTOValid(SongDTO song)
+        //{
+        //    if (song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
+        //            || song.AlbumId != albumId
+        //            || song.Name.Length < 1
+        //            || (song.SongNameInCloud == null && song.SongFile == null) || song.SongNameInCloud == "" || song.SongFile == ""
+        //            || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false
+        //            || IsUserNameValid(song.UserName);
+        //    return true;
+        //}
         public bool IsSongDTOValid(SongDTO song)
         {
             //for single song adding
-            if (song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
-                    || song.AlbumId.ToString() == "00000000-0000-0000-0000-000000000000"
-                    || song.Name.Length < 1
+            if ( //song.Id.ToString() == "00000000-0000-0000-0000-000000000000"
+                    //|| song.AlbumId.ToString() == "00000000-0000-0000-0000-000000000000"
+                    song.Name.Length < 1
                     || (song.SongNameInCloud == null && song.SongFile == null) || song.SongNameInCloud == "" || song.SongFile == ""
                     || DateTime.Compare(DateTime.Now, song.UploadDate) < 0) return false
                     || IsUserNameValid(song.UserName);

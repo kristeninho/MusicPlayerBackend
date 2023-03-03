@@ -15,7 +15,7 @@ namespace MusicPlayerBackend.Repositories
             _context = context;
         }
 
-        public async Task<SongDTO?> AddAsync(SongDTO songDTO)
+        public async Task<(string, string)?> AddAsync(SongDTO songDTO)
         {
             using var dbContext = _context.CreateDbContext();
             
@@ -26,9 +26,10 @@ namespace MusicPlayerBackend.Repositories
 
             try
             {
+                //var songId = Guid.NewGuid();
                 var song = new Song()
                 {
-                    Id = songDTO.Id, //might be removed so id would be generated in the BE
+                    //Id = songId,
                     Name = songDTO.Name,
                     Album = album,
                     SongNameInCloud = await _azureCloudStorage.UploadFileToCloudAndReturnName(songDTO.UserName, songDTO.Name, "mp3", songDTO.SongFile, "songs"),
@@ -38,7 +39,7 @@ namespace MusicPlayerBackend.Repositories
                 await dbContext.AddAsync(song);
                 await dbContext.SaveChangesAsync();
 
-                return songDTO;
+                return (song.Name, song.Id.ToString());
             }
             catch (Exception ex)
             {
@@ -51,6 +52,8 @@ namespace MusicPlayerBackend.Repositories
             using var dbContext = _context.CreateDbContext();
             var song = await dbContext.Songs.FirstOrDefaultAsync(x => x.Id == new Guid(songId));
             if (song == null) return "Song does not exist";
+
+            //Need to check if album has no more songs and is not "DEMOS", then delete album
 
             try
             {

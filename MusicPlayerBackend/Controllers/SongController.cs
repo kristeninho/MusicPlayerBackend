@@ -21,7 +21,7 @@ namespace MusicPlayerBackend.Controllers
         // POST: api/song
         // Will add song to album
         [HttpPost("AddSong")]
-        public async Task<ActionResult<SongDTO>> AddSong(SongDTO song)
+        public async Task<ActionResult<(string, string)>> AddSong(SongDTO song)
         {
             if (!_validator.IsSongDTOValid(song)) return BadRequest("Invalid song");
 

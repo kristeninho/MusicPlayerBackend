@@ -12,7 +12,7 @@ namespace MusicPlayerBackend.Tests.Repositories.Interfaces
 			_iAlbumRepository = new Mock<IAlbumRepository>().Object;
 		}
 		[Fact]
-		public void IAlbumRepositoryHasAddAsyncTaskTest() => Assert.True(_iAlbumRepository.AddAsync(new AlbumDTO()) is Task<AlbumDTO>);
+		public void IAlbumRepositoryHasAddAsyncTaskTest() => Assert.True(_iAlbumRepository.AddAsync(new AlbumDTO()) is Task<(string, string)?>);
 		[Fact]
 		public void IAlbumRepositoryHasUpdateAsyncTaskTest() => Assert.True(_iAlbumRepository.UpdateAsync(new AlbumDTO()) is Task<AlbumDTO>);
 		[Fact]

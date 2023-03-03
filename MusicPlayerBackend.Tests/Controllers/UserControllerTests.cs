@@ -23,9 +23,10 @@ namespace MusicPlayerBackend.Tests.Controllers
                 UserName = "Username1",
                 Password = "Password1!"
             };
+            var userInfo = (validUserCredentials.UserName, "abc");
 
             _userRepository.Setup(x => x.AddAsync(validUserCredentials))
-                .ReturnsAsync(validUserCredentials);
+                .ReturnsAsync(userInfo);
 
             var userController = new UserController(_userRepository.Object);
 
@@ -34,7 +35,7 @@ namespace MusicPlayerBackend.Tests.Controllers
             
             //assert
             Assert.NotNull(addUserResult);
-            Assert.Equal(validUserCredentials, ((ObjectResult)addUserResult.Result).Value);
+            Assert.Equal(userInfo, ((ObjectResult)addUserResult.Result).Value);
         }
         [Fact] //all other invalid variations will be tested under helper tests
         public void AddUserTest_InValidCredentials()

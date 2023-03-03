@@ -12,7 +12,7 @@ namespace MusicPlayerBackend.Tests.Repositories.Interfaces
 			_iUserRepository = new Mock<IUserRepository>().Object;
 		}
 		[Fact]
-		public void IUserRepositoryHasAddAsyncTaskTest() => Assert.True(_iUserRepository.AddAsync(new UserCredentialsDTO()) is Task<UserCredentialsDTO>);
+		public void IUserRepositoryHasAddAsyncTaskTest() => Assert.True(_iUserRepository.AddAsync(new UserCredentialsDTO()) is Task<(string, string)?>);
 		[Fact]
 		public void IUserRepositoryHasUpdateAsyncTaskTest() => Assert.True(_iUserRepository.UpdateAsync(new UserCredentialsDTO()) is Task<UserCredentialsDTO>);
 		[Fact]
