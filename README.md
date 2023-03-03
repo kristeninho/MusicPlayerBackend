@@ -20,4 +20,4 @@ This is a backend for a Music Player application, where user can upload albums/m
 # Logic changes to be done
 - Accounts will only be creatable manually by an admin to limit users on the application.
 - Allow more file formats like .WAV for audio and many different for images.
-
+- Move JWT secret to other secrets
