@@ -5,7 +5,6 @@ Started this project using TDD, but stopped before starting with JWT auth. Never
 
 # Quick overview
 This is a backend for a Music Player application, where user can upload albums/music and listen to their work.
-The frontend for this project is done in AngularTS and it's services are ready. Still todo is the layout and views of the application, which is what the Backend is currenctly waiting on as well.
 
 # Current logic: 
 - Anyone can create an account for himself/herself. Password will be hashed and salted.
